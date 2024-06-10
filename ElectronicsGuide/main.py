@@ -1,12 +1,22 @@
-from machine import ADC, Pin
-import time
+import sys
+import os
 
-# Initialize ADC on GPIO 34
-adc = ADC(Pin(36))
-adc.atten(ADC.ATTN_11DB)  # Configure the attenuation (0dB to 11dB) to scale the input range (0-3.3V)
+# Get the absolute path of the Linearization/linearization directory
+module_path = os.path.abspath(os.path.join('Linearization', 'linearization'))
 
-# Read and print the sensor value
-while True:
-    light_value = adc.read()  # Read the analog value (0-4095)
-    print("Light Intensity:", light_value)
-    time.sleep(1)
+# Add the directory to sys.path
+if module_path not in sys.path:
+    sys.path.append(module_path)
+
+# Now you can import the module
+import linearize
+
+if __name__ == '__main__':
+    linearize.main()
+
+
+
+
+
+
+
