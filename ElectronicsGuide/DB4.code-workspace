@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "ElectronicsGuide",
+			"path": "."
+		},
+		{
+			"name": "serial://dev/tty.SLAB_USBtoUART",
+			"uri": "serial://%2fdev%2ftty.slab_usbtouart/"
+		}
+	],
+	"settings": {
+		"python.languageServer": "Pylance"
+	}
+}
