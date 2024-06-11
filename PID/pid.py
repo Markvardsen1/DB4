@@ -1,38 +1,92 @@
 import sys
 import os
+import time
+#import machine
 
-sensorValue : float = temp[-1]
-referenceValue : int = 18
-error : float = referenceValue - sensorValue
-
-
-pgainValue = 1
-igainValue = 1
-dgainValue = 1
-
-pidData = {
-    'PGain' : pgainValue, # Should be inputs from adafruot IO
-    'IGain' : igainValue,
-    'DGain' : dgainValue,
-}
-
-actuatorValue : float = PIDUpdate(pidData, sensorValue : float, referenceValue : float)
-
-errorsum : float = 0.0
-
-def PIDUpdate(pidData : dict, sensorValue : float, referenceValue : float) -> float:
-    (Pterm, Iterm, Dterm) : float = 0.0, 0.0, 0.0
-    error : float = referenceValue - sensorValue
+class PIDController:
+    def __init__(self, pgain, igain, dgain):
+        self.pgain = pgain
+        self.igain = igain
+        self.dgain = dgain
+        self.errorsum = 0.0
+        self.previous_value = 0.0
     
-    Pterm = pidData['PGain'] * error
+    def update(self, sensor_value, reference_value):
+        error = reference_value - sensor_value
+        
+        # Proportional term
+        pterm = self.pgain * error
+        
+        # Integral term
+        self.errorsum += error
+        iterm = self.igain * self.errorsum
+        
+        # Derivative term
+        difference = sensor_value - self.previous_value
+        dterm = self.dgain * difference
+        
+        # Update previous value
+        self.previous_value = sensor_value
+        
+        # Compute the new value
+        updated_value = pterm + iterm + dterm
+        
+        return updated_value
+
+sensor_value = 1.0
+reference_value = 18.0
+
+pid_controller = PIDController(pgain=0.5, igain=0.0, dgain=0.3)
+
+while True:
+    print("Sensor Value:", sensor_value)
+    print("Reference Value:", reference_value)
     
-    errorsum = errorsum + error
-    Iterm = pidData['IGain'] * errorsum
+    # Update the sensor value using the PID controller
+    sensor_value = pid_controller.update(sensor_value, reference_value)
     
-    difference : float = newestValue - previousValue
-    Dterm = pidData['DGain'] * difference
+    time.sleep(0.5)
     
-    return (Pterm + Iterm + Dterm)
+    # Adding a break condition for demonstration purposes to avoid an infinite loop
+    if sensor_value == reference_value:
+        break
 
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

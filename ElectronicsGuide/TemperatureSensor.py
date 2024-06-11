@@ -1,6 +1,6 @@
 import machine 
 import time
-import numpy as np
+import math
 
 class Temperature:
     
@@ -15,4 +15,17 @@ class Temperature:
         
     def get_resistance(self):
         return self.FixedResistor * (1023 / self.read() - 1)
+
+    def get_temperature(self):
+        return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.get_resistance()) / 10000)) - 298.15
+        
+# pin = 25
+# FixedResistor = 10000
+# temp = Temperature(pin, FixedResistor)
+# while True:
+#     print(temp.read())
+ #    print(temp.get_resistance())
+ #    print("temperature: " + str(temp.get_temperature()) + " c")
+  #   time.sleep(1)
+
 

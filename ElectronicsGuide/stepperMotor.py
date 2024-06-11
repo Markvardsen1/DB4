@@ -1,4 +1,4 @@
-from machine import Pin as pin
+from machine import pin
 import utime
 import time
 
@@ -65,37 +65,6 @@ def loop():
         
 if __name__ == '__main__':
     loop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
