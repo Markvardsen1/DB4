@@ -14,7 +14,7 @@ class Cooler:
         
     def fiveVCooling(self) -> None:
         self.cooling_pin.value(0)
-        
+    
     # def cooling(self):
     #     self.startCooling()
     #     time.sleep(5)

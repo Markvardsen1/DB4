@@ -10,7 +10,6 @@ pot=ADC(Pin(34))
 np = neopixel.NeoPixel(machine.Pin(32), 2)
 
 
-
 while True:
     pot_value=pot.read_u16() 
     pot_value=pot.read_u16()

@@ -4,7 +4,7 @@ import time
 import machine
 
 
-class Temperature:
+class TemperatureSensor:
     
     def __init__(self, pin, FixedResistor):
         self.pin = pin

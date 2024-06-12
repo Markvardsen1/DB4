@@ -1,6 +1,7 @@
-import sys
 import os
+import sys
 import time
+
 #import machine
 
 class PIDController:
@@ -32,6 +33,16 @@ class PIDController:
         updated_value = pterm + iterm + dterm
         
         return updated_value
+    
+    def setP(self, pgain):
+        self.pgain = pgain
+        
+    def setI(self, igain):
+        self.igain = igain
+        
+    def setD(self, dgain):
+        self.dgain = dgain
+        
 
 sensor_value = 1.0
 reference_value = 18.0

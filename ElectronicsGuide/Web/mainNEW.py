@@ -1,15 +1,7 @@
 import time
 
-import board  # the structure of the board is to be determined
 import web
-from OLEDScreen import *
-from smallDCMotor import *
-from stepperMotor import *
-from TemperatureSensor import *
-
-from ElectronicsGuide.electronicsparts.cooler import *
-from ElectronicsGuide.electronicsparts.largeDCmotor import *
-from ElectronicsGuide.electronicsparts.LightSensortsl257 import *
+from electronics import *
 
 #VARIABLES TO CHANGE:
 
@@ -24,7 +16,7 @@ ADAFRUIT_IO_KEY   = ""
 #temp sensor
 temp_pin = 25
 FixedResistor = 10000
-temp_sensor = Temperature(temp_pin, FixedResistor)
+tempSensor = TemperatureSensor(temp_pin, FixedResistor)
 
 # Stepper Motor
 stepper_pin = 33
@@ -37,23 +29,25 @@ inputB = 17
 EnableA = 16
 smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
 
+
 # largeDCMotor maybe pins are swapped
 inputC = 15
 inputD = 14
 EnableB = 32
 largeDCMotor = LargeDCMotor(inputC, inputD, EnableB)
 
+
 # cooler - check with voltmeter if self.cooling_pin.value(1) is 12V or not
 cooling_pin = 12
 cooler = Cooler(cooling_pin)
 
-# OLEDScreen 
+# OLEDScreen
 sclPin = 22
 sdaPin = 23
 oled = OLEDScreen(sclPin, sdaPin)
 
 # LightSensor
-lightSensorPin = 36 
+lightSensorPin = 36
 lightSensor = LightSensor(lightSensorPin)
 
 
@@ -84,11 +78,13 @@ def cb(topic, msg):
 
 while True:
         
-    temperature = temp_sensor.getTemperature()
+    temperature = tempSensor.getTemperature()
+    light = lightSensor.getLightIntensity()
+    
+    #PID controllers
     
     
-    od = board.getOD()
-    flow = board.getFlow()
+    
     
     
     #publishing
@@ -98,6 +94,11 @@ while True:
     
 
     #displaying the new data
+    
+    #nice things to display
+    algaeConcentration = calculateAlageConcentration(light, dimensionsOfTube) #TODO talk to others how this can be calculated. 
+    foodFlow = calculateFoodFlow(pumpFrequency, pumpDutyCyle, algaeConcentration) #TODO this would be nice to have
+    
     board.displayOLED([temperature,od,flow])
     
     web.subscribeToServer(ADAFRUIT_USERNAME, "InputFeed", client)

@@ -51,7 +51,7 @@ class LargeDCMotor:
 # InD.value(0)
 # InC.value(1)
 
-# delay = 0.5 
+# delay = 0.5
 
 
 # pwmB = machine.PWM(EnB)
