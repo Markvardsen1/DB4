@@ -2,6 +2,12 @@ import time
 from TemperatureSensor import *
 import board  # the structure of the board is to be determined
 import web
+from stepperMotor import *
+from smallDCMotor import *
+from largeDCmotor import *
+from cooler import *
+from OLEDScreen import *
+from LightSensortsl257 import *
 
 #VARIABLES TO CHANGE:
 
@@ -18,11 +24,41 @@ temp_pin = 25
 FixedResistor = 10000
 temp_sensor = Temperature(temp_pin, FixedResistor)
 
+# Stepper Motor
+stepper_pin = 33
+direction_pin = 27
+stepperMotor = StepperMotor(stepper_pin, direction_pin)
+
+# smallDCMotor
+inputA = 21
+inputB = 17
+EnableA = 16
+smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
+
+# largeDCMotor maybe pins are swapped
+inputC = 15
+inputD = 14
+EnableB = 32
+largeDCMotor = LargeDCMotor(inputC, inputD, EnableB)
+
+# cooler - check with voltmeter if self.cooling_pin.value(1) is 12V or not
+cooling_pin = 12
+cooler = Cooler(cooling_pin)
+
+# OLEDScreen 
+sclPin = 22
+sdaPin = 23
+oled = OLEDScreen(sclPin, sdaPin)
+
+# LightSensor
+lightSensorPin = 36 
+lightSensor = LightSensor(lightSensorPin)
 
 
 #Connecting to wifi and getting client
 web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
 client = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY) #Uncertain if this can work
+
 
 
 def cb(topic, msg):
