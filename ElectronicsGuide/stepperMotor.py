@@ -1,31 +1,36 @@
 import time
-import machine
 
+import machine
 
 #OBS: this run the motor in one direction, and then swaps direction after steps
 
-step_pin = machine.Pin(33, machine.Pin.OUT)
-dir_pin = machine.Pin(27, machine.Pin.OUT)
 
-delay = 0.01
 
-frequency = 1000
-duty_cycle = 1000 
+class StepperMotor:
+        
+        DEFAULT_delay = 0.01
+        DEFAULT_frequency = 1000
+        DEFAULT_duty_cycle = 0
+        
+        
+        def __init__(self, step_pin, dir_pin):
+                self.step_pin = machine.Pin(step_pin, machine.Pin.OUT)
+                self.dir_pin = machine.Pin(dir_pin, machine.Pin.OUT)
+                
+                self.delay = self.DEFAULT_delay
+                self.frequency = self.DEFAULT_frequency
+                self.duty_cycle = self.DEFAULT_duty_cycle
+                self.direction = 0 #clockwise
+                
+                self.pwm = machine.PWM(step_pin)
+                
+                
+        def setDutyCycle(self, dutyCycle):
+                self.pwm.duty(dutyCycle)
+                
 
-pwm = machine.PWM(step_pin)
-pwm.freq(frequency)
-pwm.duty(duty_cycle)
-
-sum = 1000
-dir = 0
-print("trying to run")
-while True:
-        print("duty_cycle: ", duty_cycle)       
-        if duty_cycle == 100:
-                time.sleep(1)
-                duty_cycle = 1000
-                sum = 1000
-        duty_cycle = sum 
-        pwm.duty(duty_cycle)
-        time.sleep(delay)
-        sum -= 1
+        def setDirection(self, direction):
+                if direction== 0 or direction==1:
+                        self.direction=direction
+                else:
+                        print("Please provide a direction that is either 0 or 1 :)")

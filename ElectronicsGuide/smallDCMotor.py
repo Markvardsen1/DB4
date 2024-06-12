@@ -1,14 +1,13 @@
-import time 
-import machine 
+import time
 
+import machine
 
-# L298N motor driver needs 2 input pins and 1 enabler pin 
-InA = machine.Pin(26, machine.Pin.OUT)
-InB = machine.Pin(15, machine.Pin.OUT)
-EnA = machine.Pin(32, machine.Pin.OUT)
+InA = machine.Pin(21, machine.Pin.OUT)
+InB = machine.Pin(17, machine.Pin.OUT)
+EnA = machine.Pin(16, machine.Pin.OUT)
 
-InA.value(1)
-InB.value(0)
+InA.value(0)
+InB.value(1)
 
 delay = 0.5 
 

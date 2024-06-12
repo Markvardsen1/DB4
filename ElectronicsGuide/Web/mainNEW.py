@@ -1,5 +1,5 @@
 import time
-
+from TemperatureSensor import *
 import board  # the structure of the board is to be determined
 import web
 
@@ -10,6 +10,13 @@ WIFI_PASSWORD     = "bahamondes"
 
 ADAFRUIT_USERNAME = "felimondes"
 ADAFRUIT_IO_KEY   = ""
+
+
+#OBJECTS TO USE:
+#temp sensor
+temp_pin = 25
+FixedResistor = 10000
+temp_sensor = Temperature(temp_pin, FixedResistor)
 
 
 
@@ -35,9 +42,13 @@ def cb(topic, msg):
             temp_str = msg[len("funni("):-1]
             board.displayOLED(temp_str)
 
+
+
 while True:
+        
+    temperature = temp_sensor.getTemperature()
     
-    temperature = board.getTemperature()
+    
     od = board.getOD()
     flow = board.getFlow()
     
