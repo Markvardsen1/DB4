@@ -1,6 +1,6 @@
 import ssd1306
 from machine import I2C, Pin
-i2c = i2c(scl=Pin(22), sda=Pin(23), freq=100000)
+i2c = I2C(scl=Pin(22), sda=Pin(23), freq=100000)
 
 device_address = i2c.scan()
 
