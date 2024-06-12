@@ -1,7 +1,7 @@
 import time
 
 import web
-from electronics import *
+from electronicsAndPID import *
 
 #VARIABLES TO CHANGE:
 
@@ -50,6 +50,11 @@ oled = OLEDScreen(sclPin, sdaPin)
 lightSensorPin = 36
 lightSensor = LightSensor(lightSensorPin)
 
+#Temperature PID controller #TODO temperature PID or flow rate / cooler PID???
+temperaturePID = PIDController()
+
+#OD PID controller #TODO OD PID or light lamp PID???
+odPID = PIDController()
 
 #Connecting to wifi and getting client
 web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
@@ -75,36 +80,35 @@ def cb(topic, msg):
             board.displayOLED(temp_str)
 
 
-
+iter = 0
 while True:
         
     temperature = tempSensor.getTemperature()
     light = lightSensor.getLightIntensity()
     
-    #PID controllers
+    #PID controllers #TODO
     
     
+    #Subscribing
+    web.subscribeToServer(ADAFRUIT_USERNAME, "InputFeed", client) #this calls the cb function above
     
-    
-    
-    #publishing
-    web.publish(temperature,ADAFRUIT_USERNAME,"tempTracker", client)
-    web.publish(od,ADAFRUIT_USERNAME,"odTracker", client)
-    web.publish(flow,ADAFRUIT_USERNAME,"flowTracker", client) #repetitve code, maybe do list of feeds to publish to
     
 
-    #displaying the new data
-    
-    #nice things to display
-    algaeConcentration = calculateAlageConcentration(light, dimensionsOfTube) #TODO talk to others how this can be calculated. 
-    foodFlow = calculateFoodFlow(pumpFrequency, pumpDutyCyle, algaeConcentration) #TODO this would be nice to have
-    
-    board.displayOLED([temperature,od,flow])
-    
-    web.subscribeToServer(ADAFRUIT_USERNAME, "InputFeed", client)
-    #this calls the cb function above
-    
-    time.sleep(30) #30 sec due to 3 different publishes
+    if iter == 200: #TODO Make iter large enough, so that it wont break the ping limit.
+        
+        #publishing data
+        web.publish(temperature,ADAFRUIT_USERNAME,"tempTracker", client)
+        web.publish(od,ADAFRUIT_USERNAME,"odTracker", client)
+        web.publish(flow,ADAFRUIT_USERNAME,"flowTracker", client) #repetitve code, maybe do list of feeds to publish to
+        
+        #displaying stuff on OLED
+        
+        #TODO make some nice OLED if time.
+        algaeConcentration = calculateAlageConcentration(light, dimensionsOfTube) #TODO talk to others how this can be calculated. 
+        foodFlow = calculateFoodFlow(pumpFrequency, pumpDutyCyle, algaeConcentration) #TODO this would be nice to have
+
+
+    iter+=1
     
     
     

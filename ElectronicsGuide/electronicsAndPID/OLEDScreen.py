@@ -18,7 +18,6 @@ class OLEDScreen:
         }
         
         
-        
     def getAdress(self):
         return self.i2c.scan()
     
