@@ -1,7 +1,8 @@
-from machine import Pin, ADC
-import machine 
-import neopixel
 import time
+
+import machine
+import neopixel
+from machine import ADC, Pin
 
 pot=ADC(Pin(34))
 

@@ -1,5 +1,7 @@
-from machine import ADC, Pin
 import time
+
+from machine import ADC, Pin
+
 
 class LightSensor:
     

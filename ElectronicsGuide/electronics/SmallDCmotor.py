@@ -2,6 +2,7 @@ import time
 
 import machine
 
+
 class SmallDCMotor:
         
         DEFAULT_FREQUENCY = 1000

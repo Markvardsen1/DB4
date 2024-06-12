@@ -1,13 +1,15 @@
 import time
-from TemperatureSensor import *
+
 import board  # the structure of the board is to be determined
 import web
-from stepperMotor import *
-from smallDCMotor import *
-from largeDCmotor import *
-from cooler import *
 from OLEDScreen import *
-from LightSensortsl257 import *
+from smallDCMotor import *
+from stepperMotor import *
+from TemperatureSensor import *
+
+from ElectronicsGuide.electronicsparts.cooler import *
+from ElectronicsGuide.electronicsparts.largeDCmotor import *
+from ElectronicsGuide.electronicsparts.LightSensortsl257 import *
 
 #VARIABLES TO CHANGE:
 

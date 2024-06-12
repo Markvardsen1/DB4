@@ -1,6 +1,8 @@
-import machine 
-import time
 import math
+import time
+
+import machine
+
 
 class Temperature:
     
