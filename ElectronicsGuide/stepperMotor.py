@@ -1,156 +1,47 @@
-from machine import pin
-import utime
 import time
+import machine
 
-class stepper:
-    def __init__(self, step_pin, dir_pin, enable_pin=none):
-        self.step_pin = pin(step_pin, pin.out)
-        self.dir_pin = pin(dir_pin, pin.out)
-        self.enable_pin = pin(enable_pin, pin.out) if enable_pin else none
-        self.position = 0
-        self.delay = 0.01  # default delay, can be set by set_speed
 
-    def set_step_high(self):
-        self.step_pin.value(1)
-        
-    def set_step_low(self):
-        self.step_pin.value(0)
-        
+#OBS: this run the motor in one direction, and then swaps direction after steps
 
-    def set_speed(self, speed):
-        # calculate delay time based on the desired speed (steps per second)
-        self.delay = 1 / abs(speed)  # delay in seconds
+step_pin = machine.Pin(33, machine.Pin.OUT)
+dir_pin = machine.Pin(27, machine.Pin.OUT)
 
-    def set_direction(self, direction):
-        self.dir_pin.value(direction)
+delay = 0.5
 
-    def enable(self):
-        if self.enable_pin:
-            self.enable_pin.value(0)  # assuming active low enable
+frequency = 1000
+duty_cycle = 512 
 
-    def disable(self):
-        if self.enable_pin:
-            self.enable_pin.value(1)  # assuming active low enable
+pwm = machine.PWM(step_pin)
+pwm.freq(frequency)
+pwm.duty(duty_cycle)
 
-    def move_to(self, position):
-        steps = position - self.position
-        direction = 1 if steps > 0 else 0
-        self.set_direction(direction)
-        steps = abs(steps)
-
-        for _ in range(steps):
-            self.step_pin.value(1)
-            utime.sleep(self.delay / 2)
-            self.step_pin.value(0)
-            utime.sleep(self.delay / 2)
-
-        self.position = position
-
-# define the pins (adjust the gpio numbers as needed)
-step_pin = 33  # gpio number where step pin is connected
-dir_pin = 27   # gpio number where dir pin is connected
-enable_pin = none  # gpio number where enable pin is connected
-# initialize stepper
-stepper = stepper(step_pin, dir_pin, enable_pin)
-stepper.enable()  # enable the stepper motor driver
-
-def loop():
-    while true:
-
-        stepper.set_step_high()
-        stepper.set_step_low()
-        time.sleep(0.01)
+sum = 0
+dir = 0
+print("trying to run")
+while True:
+        step_pin.off()
+        time.sleep(delay)
+        step_pin.on()
+        time.sleep(delay)
+        sum = sum + 1 
+        if sum == 10: 
+                sum = 0 
+                if dir % 2 == 0:
+                        dir = dir + 1
+                        print("Turning right")
+                        dir_pin.value(dir % 2)
+                elif dir % 2 == 1:
+                        dir = dir + 1
+                        print("Turning left")
+                        dir_pin.value(dir % 2)
+                
         
         
         
-if __name__ == '__main__':
-    loop()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
+                
+                
+                
+        
+        
