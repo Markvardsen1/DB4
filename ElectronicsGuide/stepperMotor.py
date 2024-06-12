@@ -7,41 +7,25 @@ import machine
 step_pin = machine.Pin(33, machine.Pin.OUT)
 dir_pin = machine.Pin(27, machine.Pin.OUT)
 
-delay = 0.5
+delay = 0.01
 
 frequency = 1000
-duty_cycle = 512 
+duty_cycle = 1000 
 
 pwm = machine.PWM(step_pin)
 pwm.freq(frequency)
 pwm.duty(duty_cycle)
 
-sum = 0
+sum = 1000
 dir = 0
 print("trying to run")
 while True:
-        step_pin.off()
+        print("duty_cycle: ", duty_cycle)       
+        if duty_cycle == 100:
+                time.sleep(1)
+                duty_cycle = 1000
+                sum = 1000
+        duty_cycle = sum 
+        pwm.duty(duty_cycle)
         time.sleep(delay)
-        step_pin.on()
-        time.sleep(delay)
-        sum = sum + 1 
-        if sum == 10: 
-                sum = 0 
-                if dir % 2 == 0:
-                        dir = dir + 1
-                        print("Turning right")
-                        dir_pin.value(dir % 2)
-                elif dir % 2 == 1:
-                        dir = dir + 1
-                        print("Turning left")
-                        dir_pin.value(dir % 2)
-                
-        
-        
-        
-        
-                
-                
-                
-        
-        
+        sum -= 1
