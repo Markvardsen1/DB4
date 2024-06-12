@@ -9,6 +9,7 @@ class OLEDScreen:
     def __init__(self, sclPin, sdaPin):
         self.i2c = I2C(scl=Pin(sclPin), sda=Pin(sdaPin), freq=self.DEFAULT_FREQUENCY)
         self.oled = ssd1306.SSD1306_I2C(128, 32, self.i2c)
+        
         self.slots = {
             "temp": "",
             "od": "",
@@ -32,6 +33,10 @@ class OLEDScreen:
             self.oled.text(self.slots[i].key, 0, 8)
             self.oled.text(self.slots[i].value, 0+8, y)
             y+=8
+            
+    def display(self, text:str):
+        self.oled.text("this!", 16, 24)
+        self.oled.show()
         
         
         

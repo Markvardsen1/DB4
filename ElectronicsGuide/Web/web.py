@@ -30,8 +30,7 @@ def connectToWifi(WIFI_SSID: str, WIFI_PASSWORD: str):
         time.sleep(1)
 
     if attempt_count == MAX_ATTEMPTS:
-        print('could not connect to the WiFi network')
-        sys.exit()
+        raise ZeroDivisionError
         
         
 
@@ -58,9 +57,8 @@ def connectToServer(ADAFRUIT_USERNAME: str, ADAFRUIT_IO_KEY: str):
     try:
         client.connect()
     except Exception as e:
-        print('could not connect to MQTT server {}: {}'.format(type(e).__name__, e))
-        sys.exit()
-
+        raise ZeroDivisionError
+    
     return client
 
 
@@ -77,9 +75,7 @@ def publish(data: str, ADAFRUIT_USERNAME:str , ADAFRUIT_IO_FEEDNAME: str, client
                     qos=0)  
             
     except KeyboardInterrupt:
-            print('Ctrl-C pressed...exiting')
-            client.disconnect()
-            sys.exit()
+            raise ZeroDivisionError
         
 
 
@@ -98,7 +94,5 @@ def subscribeToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME, client):
             client.check_msg() #OBS: maybe we have to do wait.msg instead... also code is different when using "check" vs "wait"
     
     except KeyboardInterrupt:
-            print('Ctrl-C pressed...exiting')
-            client.disconnect()
-            sys.exit()
+            raise ZeroDivisionError
         

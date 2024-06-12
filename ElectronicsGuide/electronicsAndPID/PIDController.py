@@ -5,12 +5,16 @@ import time
 #import machine
 
 class PIDController:
-    def __init__(self):
+    def __init__(self, desiredValue):
         self.pgain = 0
         self.igain = 0
         self.dgain = 0
+        
         self.errorsum = 0
         self.previous_value = 0
+        
+        self.desiredValue = desiredValue
+        
     
     def update(self, sensor_value, reference_value):
         error = reference_value - sensor_value
@@ -32,6 +36,7 @@ class PIDController:
         # Compute the new value
         updated_value = pterm + iterm + dterm
         
+        
         return updated_value
     
     def setP(self, pgain):
@@ -42,6 +47,9 @@ class PIDController:
         
     def setD(self, dgain):
         self.dgain = dgain
+        
+    def setDesiredValue(self, desiredValue):
+        self.desiredValue = desiredValue
         
 
 
