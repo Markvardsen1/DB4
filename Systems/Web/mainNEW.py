@@ -51,7 +51,7 @@ oledScreen = OLEDScreen(sclPin, sdaPin)
 
 # ODSensor
 ODSensorPin = 36
-odSensor = ODSensor(ODSensorPin)
+odSensor = ODSensor(ODSensorPin) #TODO VALTYR GIMME GIMME MORE
 
 #Temperature PID controller #TODO temperature PID or flow rate / cooler PID???
 temperaturePID = PIDController()

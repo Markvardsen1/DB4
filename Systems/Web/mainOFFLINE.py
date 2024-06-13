@@ -8,10 +8,12 @@ def run():
 
     iter = 0
     while True:
-            
+        
+        print(iter)
+        
         temperature = temperatureSensor.getTemperature()
         OD = odSensor.getOD()
-        #voltageLED = led.getVoltage #TODO 
+        #voltageLED = led.getVoltage #TODO
         
         #PID controllers #TODO
 
@@ -20,8 +22,8 @@ def run():
             #publishing data
             
             data = {
-                "temp": temperature,
-                "od": OD
+                "temp": temperature
+                #"od": OD
                 #TODO add voltage of LED
                 }
             
@@ -41,9 +43,6 @@ def run():
                 mainOFFLINE.run()
 
         iter+=1
-
-
-
 
 def publishFileToAdafruitIO(filePathToData, dataFileName):
     
