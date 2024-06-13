@@ -25,3 +25,16 @@ class SmallDCMotor:
         
         def getDutyCycle(self):
                 return self.pwmA.duty()
+
+                
+        def start(self):
+                self.InA.value(0)
+                self.InB.value(1)
+                self.pwmA.duty(self.DEFAULT_DUTY_CYCLE)
+        
+        def stop(self):
+                self.InA.value(0)
+                self.InB.value(0)
+                self.pwmA.duty(0)
+        
+        

@@ -21,6 +21,14 @@ class TemperatureSensor:
     def getTemperature(self):
         return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 #OBS: CALIBRATE HERE
 
-
+    ### OBS: CALIBRATE HERE & test if it works
+    
+    def stop(self):
+        self.adc.atten(machine.ADC.ATTN_0DB)
+        
+    def start(self):
+        self.adc.atten(machine.ADC.ATTN_11DB)
+    
+    
 
 
