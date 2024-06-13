@@ -4,19 +4,50 @@ from mainNEW import *
 def run(client_ONLINE):
 
     def cb(topic, msg):
-        
-            if msg.startswith("set.dtemp("):
-                content_str = msg[len("set.dtemp("):-1]
-                temperaturePID.setDesiredValue(int(content_str))
-                
-            if msg.startswith("set.dOD("):
-                content_str = msg[len("set.dOD("):-1]
-                odPID.setDesiredValue(int(content_str))
-                
-            if msg.startswith("test("):
-                content_str = msg[len("funni("):-1]
-                OLEDScreen.display(content_str)
 
+            msg = msg.lower()
+            
+            if msg.startswith("cooler("):
+                content_str = (msg[len("cooler("):-1])
+
+                match content_str:
+                    case "on": Cooler.start()
+                    case "of": cooler.stop()
+            
+            #if msg.startswith("pump("): #TODO names in this functions are wrong
+            #    content_int = int ( (msg[len("pump("):-1]))
+
+            #    if content_int <= 100 and content_int >= 0:
+            #        StepperMotor.setSpeed(content_int)
+            #    else:
+            #        OLEDScreen.display("Input needs to be: 0 to 100")
+                    
+            #if msg.startswith("led("):
+            #    content_int = int ( (msg[len("led("):-1]))
+
+            #    if content_int <= 100 and content_int >= 0:
+            #        LED.setLight(content_int)
+            #    else:
+            #        OLEDScreen.display("Input needs to be: 0 to 100")
+            
+            
+            if msg.startswith("open"):
+                content_str = (msg[len("open("):-1])
+
+                #match content_str:
+                    #case "MW": StepperMotor.turnOnMW #TODO these functions need to be made
+                    #case "CW": StepperMotor.turnOnCW #TODO these functions need to be made
+            
+            if msg.startswith("oled("):
+                content_str = (msg[len("open("):-1])
+                OLEDScreen.
+        
+                    
+                    
+                    
+                    
+            
+            
     iter = 0
     while True:
             

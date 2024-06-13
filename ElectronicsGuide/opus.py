@@ -1,7 +1,5 @@
-from time import sleep
-
 from ElectronicsGuide.electronicsAndPID import *
-
+from time import sleep
 temp_pin = 25
 FixedResistor = 10000
 tempSensor = TemperatureSensor(temp_pin, FixedResistor)
@@ -73,5 +71,7 @@ def startDevices():
     SmallDCMotor.start()
     sleep(3)
     
-    print("StepperMotor")
+    
+    
+    
     print("starting temperature Sesnor ")
