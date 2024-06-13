@@ -1,8 +1,7 @@
 
 import time
 
-from DB4.ElectronicsGuide.electronicsAndPID.TemperatureSensor import \
-    TemperatureSensor
+from DB4.Systems.electronicsAndPID import TemperatureSensor
 
 #OBJECTS TO USE:
 #temp sensor
@@ -14,9 +13,3 @@ temperatureSensor= TemperatureSensor(temp_pin, FixedResistor)
 while True:
     time.sleep(1)
     print(temperatureSensor.getTemperature())
-    
-    
-    
-    
-
-
