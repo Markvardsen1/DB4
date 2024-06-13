@@ -19,7 +19,7 @@ class TemperatureSensor:
         return self.FixedResistor * (1023 / self.read() - 1)
 
     def getTemperature(self):
-        return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.get_resistance()) / 10000)) - 298.15 #OBS: CALIBRATE HERE
+        return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 #OBS: CALIBRATE HERE
 
 
 
