@@ -1,8 +1,8 @@
 
 from .Cooler import Cooler
 from .LargeDCMotor import LargeDCmotor
-from .LightSensortsl257 import LightSensor
 from .NeoPixelLed import NeoPixelLed
+from .ODSensosr import ODSensor
 from .OLEDScreen import OLEDScreen
 from .PIDController import PIDController
 from .SmallDCMotor import SmallDCmotor

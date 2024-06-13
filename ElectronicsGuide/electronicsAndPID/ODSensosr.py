@@ -3,14 +3,14 @@ import time
 from machine import ADC, Pin
 
 
-class LightSensor:
+class ODSensor:
     
     
     def __init__(self, pinNumber):
         self.adc = ADC(Pin(pinNumber))
         self.adc.atten(ADC.ATTN_11DB)
         
-    def getLightIntensity(self):
+    def getOD(self):
         return self.adc.read()
     
     

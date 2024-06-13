@@ -13,7 +13,7 @@ WIFI_PASSWORD     = "bahamondes"
 ADAFRUIT_USERNAME = "felimondes"
 ADAFRUIT_IO_KEY   = ""
 
-
+filePathToData    = r'C:\Users\User\Desktop\DB4\DB4\ElectronicsGuide\Web\data'
 
 #OBJECTS TO USE:
 #temp sensor
@@ -49,9 +49,9 @@ sclPin = 22
 sdaPin = 23
 oled = OLEDScreen(sclPin, sdaPin)
 
-# LightSensor
-lightSensorPin = 36
-lightSensor = LightSensor(lightSensorPin)
+# ODSensor
+ODSensorPin = 36
+ODSensor = ODSensor(ODSensorPin)
 
 #Temperature PID controller #TODO temperature PID or flow rate / cooler PID???
 temperaturePID = PIDController()
@@ -66,7 +66,7 @@ odPID = PIDController()
 try:
     web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
     client = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY) #Uncertain if this can work
-    mainONLINE.run()
+    mainONLINE.run(client)
     
 except ZeroDivisionError:
     mainOFFLINE.run()
