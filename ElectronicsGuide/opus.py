@@ -1,5 +1,6 @@
-from ElectronicsGuide.electronicsAndPID import *
 from time import sleep
+from electronicsAndPID import * 
+
 temp_pin = 25
 FixedResistor = 10000
 tempSensor = TemperatureSensor(temp_pin, FixedResistor)
@@ -20,7 +21,7 @@ oled = OLEDScreen(sclPin, sdaPin)
 
 # ODSensor
 ODSensorPin = 36
-ODSensor = ODSensor(ODSensorPin)
+odSensor = ODSensor(ODSensorPin)
 
 
 # smallDCMotor
@@ -39,39 +40,52 @@ largeDCMotor = LargeDCMotor(inputD,inputC,EnableB)
 StepperMotor.stop()
 
 def stopAllDevies():
-    TemperatureSensor.stop()
-    StepperMotor.stop()
-    Cooler.stop()
-    OLEDScreen.stop()
-    ODSensor.stop()
-    SmallDCMotor.stop()
-    LargeDCMotor.stop()
+    tempSensor.stop()
+    stepperMotor.stop()
+    cooler.stop()
+    oled.stop()
+    odSensor.stop()
+    smallDCMotor.stop()
+    largeDCMotor.stop()
 
     
 def startDevices():
     print("Oled")
-    OLEDScreen.start()
+    oled.start()
     sleep(3)
     
     print("Cooler")
-    Cooler.start()
+    cooler.start()
     sleep(3)
     
     
     print("Large")
-    LargeDCMotor.start()
+    largeDCMotor.start()
     sleep(3)
     
     print("ODSensor")
-    ODSensor.start()
+    odSensor.start()
     sleep(3)
     
     
     print("SmallDCMotor")
-    SmallDCMotor.start()
+    smallDCMotor.start()
+    sleep(3)
+    
+    print("StepperMotor")
+    stepperMotor.start()
     sleep(3)
     
     
-    
-    
     print("starting temperature Sesnor ")
+    tempSensor.start()
+    sleep(10)
+    
+def test():
+    stopAllDevies()
+    sleep(1)
+    
+    startDevices()
+    stopAllDevies()
+    
+test()

@@ -12,3 +12,9 @@ class Cooler:
         
     def fiveVCooling(self) -> None:
         self.cooling_pin.value(0)
+
+    def stop(self) -> None:
+        self.fiveVCooling()
+        
+    def start(self) -> None:
+        self.twevleVCooling()

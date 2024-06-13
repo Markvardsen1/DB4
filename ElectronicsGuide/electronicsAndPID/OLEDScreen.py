@@ -37,5 +37,14 @@ class OLEDScreen:
         self.oled.show()
         
     def display(self, text:str):
-        #TODO be able to display single inputs for like 5 sec for testing
-        pass
+        
+        self.oled.fill(0)
+        self.oled.text(text, 0, 8)
+        self.oled.show()
+
+    def stop(self) -> None: 
+        self.oled.fill(0)
+        self.oled.show()
+        
+    def start(self) -> None:
+        self.display("Starting")
