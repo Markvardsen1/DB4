@@ -13,7 +13,7 @@ WIFI_PASSWORD     = "bahamondes"
 ADAFRUIT_USERNAME = "felimondes"
 ADAFRUIT_IO_KEY   = ""
 
-filePathToData    = r'C:\Users\User\Desktop\DB4\DB4\ElectronicsGuide\Web\data'
+filePathToData = r'C:\Users\User\Desktop\DB4\DB4\ElectronicsGuide\Web'
 
 #OBJECTS TO USE:
 #temp sensor
