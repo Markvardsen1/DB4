@@ -19,7 +19,7 @@ filePathToData = r'C:\Users\User\Desktop\DB4\DB4\ElectronicsGuide\Web'
 #temp sensor
 temp_pin = 25
 FixedResistor = 10000
-tempSensor = TemperatureSensor(temp_pin, FixedResistor)
+temperatureSensor= TemperatureSensor(temp_pin, FixedResistor)
 
 # Stepper Motor
 stepper_pin = 33
@@ -47,11 +47,11 @@ cooler = Cooler(cooling_pin)
 # OLEDScreen
 sclPin = 22
 sdaPin = 23
-oled = OLEDScreen(sclPin, sdaPin)
+oledScreen = OLEDScreen(sclPin, sdaPin)
 
 # ODSensor
 ODSensorPin = 36
-ODSensor = ODSensor(ODSensorPin)
+odSensor = ODSensor(ODSensorPin)
 
 #Temperature PID controller #TODO temperature PID or flow rate / cooler PID???
 temperaturePID = PIDController()
@@ -62,13 +62,12 @@ odPID = PIDController()
 
 
 #Connecting to wifi and getting client
-
 try:
     web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
     client = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY) #Uncertain if this can work
     mainONLINE.run(client)
     
-except ZeroDivisionError:
+except ConnectionError:
     mainOFFLINE.run()
     
     

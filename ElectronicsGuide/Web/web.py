@@ -4,7 +4,7 @@ import time
 import mainNEW
 import network
 from umqtt.robust import MQTTClient
-
+from mainONLINE import cb
 
 def connectToWifi(WIFI_SSID: str, WIFI_PASSWORD: str):
     # the following function is the callback which is
@@ -30,7 +30,7 @@ def connectToWifi(WIFI_SSID: str, WIFI_PASSWORD: str):
         time.sleep(1)
 
     if attempt_count == MAX_ATTEMPTS:
-        raise ZeroDivisionError
+        raise ConnectionError
         
         
 
@@ -56,8 +56,8 @@ def connectToServer(ADAFRUIT_USERNAME: str, ADAFRUIT_IO_KEY: str):
                         ssl=False)
     try:
         client.connect()
-    except Exception as e:
-        raise ZeroDivisionError
+    except Exception:
+        raise ConnectionError
     
     return client
 
@@ -74,8 +74,8 @@ def publish(data: str, ADAFRUIT_USERNAME:str , ADAFRUIT_IO_FEEDNAME: str, client
                     bytes(data, 'utf-8'), 
                     qos=0)  
             
-    except KeyboardInterrupt:
-            raise ZeroDivisionError
+    except Exception:
+            raise ConnectionError
         
 
 
@@ -83,7 +83,7 @@ def publish(data: str, ADAFRUIT_USERNAME:str , ADAFRUIT_IO_FEEDNAME: str, client
 def subscribeToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME, client):
             
     mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME), 'utf-8')
-    client.set_callback(mainNEW.cb)
+    client.set_callback(cb)
     client.subscribe(mqtt_feedname) 
 
     mqtt_feedname_get = bytes('{:s}/get'.format(mqtt_feedname), 'utf-8')
@@ -91,8 +91,8 @@ def subscribeToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME, client):
         
         
     try:
-            client.check_msg() #OBS: maybe we have to do wait.msg instead... also code is different when using "check" vs "wait"
+            client.check_msg() #TODO: maybe we have to do wait.msg instead... also code is different when using "check" vs "wait"
     
-    except KeyboardInterrupt:
-            raise ZeroDivisionError
+    except Exception:
+            raise ConnectionError
         

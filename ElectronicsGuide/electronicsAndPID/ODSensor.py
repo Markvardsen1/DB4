@@ -1,5 +1,4 @@
 import time
-
 from machine import ADC, Pin
 
 #TODO VALTYR KOMMER MED NYY

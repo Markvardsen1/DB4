@@ -9,15 +9,7 @@ class OLEDScreen:
     def init(self, sclPin, sdaPin):
         self.i2c = I2C(scl=Pin(sclPin), sda=Pin(sdaPin), freq=self.DEFAULT_FREQUENCY)
         self.oled = ssd1306.SSD1306_I2C(128, 32, self.i2c)
-        self.slots = {
-            "temp": "",
-            "od": "",
-            "Ki": "",
-            "Kp": "",
-            "Kd": "",
-        }
-
-
+        
 
     def getAdress(self):
         return self.i2c.scan()
@@ -41,6 +33,18 @@ class OLEDScreen:
         self.oled.fill(0)
         self.oled.text(text, 0, 8)
         self.oled.show()
+        
+        
+    def display(self, map):
+        items_list = list(map.items())
+        current_position = 0  # Initial vertical position
+
+        while True:
+            self.display_items(items_list, current_position)
+            current_position -= 1  # Move up
+            if current_position < -10:  # Reset position after one line height
+                current_position = 0
+            time.sleep(0.05)  # Adjust speed of scrolling
 
     def stop(self) -> None: 
         self.oled.fill(0)
@@ -48,3 +52,9 @@ class OLEDScreen:
         
     def start(self) -> None:
         self.display("Starting")
+        
+        
+        
+        
+
+

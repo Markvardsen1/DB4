@@ -11,8 +11,8 @@ def run(client_ONLINE):
                 content_str = (msg[len("cooler("):-1])
 
                 match content_str:
-                    case "on": Cooler.start()
-                    case "of": cooler.stop()
+                    case "on": cooler.start()
+                    case "off": cooler.stop()
             
             #if msg.startswith("pump("): #TODO names in this functions are wrong
             #    content_int = int ( (msg[len("pump("):-1]))
@@ -40,19 +40,14 @@ def run(client_ONLINE):
             
             if msg.startswith("oled("):
                 content_str = (msg[len("open("):-1])
-                OLEDScreen.
-        
-                    
-                    
-                    
-                    
-            
+                oledScreen.displayTemporary(content_str)
+                
             
     iter = 0
-    while True:
-            
-        temperature = tempSensor.getTemperature()
-        OD = ODSensor.getOD()
+    while True: 
+        temperature = temperatureSensor.getTemperature()
+        OD = odSensor.getOD()
+        #voltageLED = led.getVoltage #TODO 
         
         #PID controllers #TODO
         

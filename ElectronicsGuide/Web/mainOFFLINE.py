@@ -9,25 +9,27 @@ def run():
     iter = 0
     while True:
             
-        temperature = tempSensor.getTemperature()
-        OD = ODSensor.getOD()
+        temperature = temperatureSensor.getTemperature()
+        OD = odSensor.getOD()
+        #voltageLED = led.getVoltage #TODO 
         
         #PID controllers #TODO
 
         if iter == 200: #TODO Make iter large enough, so that it wont break the ping limit.
             
             #publishing data
+            
             data = {
                 "temp": temperature,
                 "od": OD
+                #TODO add voltage of LED
                 }
             
             writeToFile(data)
                         
             #displaying stuff on OLED
-            #TODO make some nice OLED if time.
-            #algaeConcentration = calculateAlageConcentration(OD, dimensionsOfTube) #TODO talk to others how this can be calculated. 
-            #foodFlow = calculateFoodFlow(pumpFrequency, pumpDutyCyle, algaeConcentration) #TODO this would be nice to have
+            oledScreen.display(data)
+            
             
             try:
                 web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
@@ -35,7 +37,7 @@ def run():
                 publishFileToAdafruitIO(client_OFFLINE) #TODO this one does not work, "file is being used elsewhere"
                 mainONLINE.run(client_OFFLINE)
     
-            except ZeroDivisionError:
+            except ConnectionError:
                 mainOFFLINE.run()
 
         iter+=1

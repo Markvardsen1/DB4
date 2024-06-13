@@ -8,6 +8,8 @@ class LargeDCMotor:
         DEFAULT_FREQUENCY = 1000
         DEFAULT_DUTY_CYCLE = 750
         
+        
+        
         def __init__(self, inputD, inputC, EnableB) -> None:
                 self.InD = machine.Pin(inputD, machine.Pin.OUT)
                 self.InC = machine.Pin(inputC, machine.Pin.OUT)
