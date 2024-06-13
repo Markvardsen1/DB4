@@ -1,5 +1,6 @@
-import time 
-import machine 
+import time
+
+import machine
 
 cooling_pin = machine.Pin(12, machine.Pin.OUT)
 
