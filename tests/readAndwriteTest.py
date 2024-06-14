@@ -1,48 +1,4 @@
-
 import os
-
-
-def run():
-
-    iter = 0
-    while True:
-        
-        print(iter)
-        
-        temperature = temperatureSensor.getTemperature()
-        OD = odSensor.getOD()
-        #voltageLED = led.getVoltage #TODO
-        
-        #PID controllers #TODO
-
-        if iter == 200: #TODO Make iter large enough, so that it wont break the ping limit.
-            
-            #publishing data
-            
-            data = {
-                "temp": temperature
-                #"od": OD
-                #TODO add voltage of LED
-                }
-            
-            writeToFile(data)
-                        
-            #displaying stuff on OLED
-            oledScreen.display(data)
-            
-            
-            try:
-                web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
-                client_OFFLINE = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY)
-                publishFileToAdafruitIO(client_OFFLINE) #TODO this one does not work, "file is being used elsewhere"
-                mainONLINE.run(client_OFFLINE)
-    
-            except ConnectionError:
-                mainOFFLINE.run()
-
-        iter+=1
-
-
 
 
 def publishFileToAdafruitIO(filePathToData, dataFileName):
@@ -95,4 +51,15 @@ def writeToFile(data: dict, filePathToData):
     file.write(line + "\n")
     file.close()  # Close the file after writing
     print(f"Written to file: {line}")
+
+
+filePathToData = r'C:\Users\User\Desktop\DB4\DB4\Systems\data'
+dataFileName = "output.txt"
+data = {"temp": 5, "od": 10}
+
+#REMOVE COMMENTS TO TEST
+#writeToFile(data, filePathToData)
+#publishFileToAdafruitIO(filePathToData, dataFileName)
+
+        
 

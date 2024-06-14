@@ -1,8 +1,5 @@
 import time
 
-import mainOFFLINE
-import mainONLINE
-import web
 from electronicsAndPID import *
 
 #VARIABLES TO CHANGE:
@@ -13,7 +10,7 @@ WIFI_PASSWORD     = "bahamondes"
 ADAFRUIT_USERNAME = "felimondes"
 ADAFRUIT_IO_KEY   = ""
 
-filePathToData = r'C:\Users\User\Desktop\DB4\DB4\ElectronicsGuide\Web'
+filePathToData = r'C:\Users\User\Desktop\DB4\DB4\Systems\data'
 
 #OBJECTS TO USE:
 #temp sensor
@@ -58,8 +55,6 @@ temperaturePID = PIDController()
 
 #OD PID controller #TODO OD PID or light lamp PID???
 odPID = PIDController()
-
-
 
 #Connecting to wifi and getting client
 try:

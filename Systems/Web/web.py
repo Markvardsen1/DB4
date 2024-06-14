@@ -1,10 +1,11 @@
+import os
 import sys
 import time
 
-import mainNEW
 import network
-from umqtt.robust import MQTTClient
 from mainONLINE import cb
+from umqtt.robust import MQTTClient
+
 
 def connectToWifi(WIFI_SSID: str, WIFI_PASSWORD: str):
     # the following function is the callback which is
@@ -77,8 +78,6 @@ def publish(data: str, ADAFRUIT_USERNAME:str , ADAFRUIT_IO_FEEDNAME: str, client
     except Exception:
             raise ConnectionError
         
-
-
 
 def subscribeToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME, client):
             
