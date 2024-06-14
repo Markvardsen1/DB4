@@ -3,36 +3,9 @@ import sys
 import time
 
 import network
-from mainONLINE import cb
+from runONLINE import cb
 from umqtt.robust import MQTTClient
 
-
-def connectToWifi(WIFI_SSID: str, WIFI_PASSWORD: str):
-    # the following function is the callback which is
-    # called when subscribed data is received
-    def cb(topic, msg):
-        print('Subscribe:  Received Data:  Topic = {}, Msg = {}\n'.format(topic, msg))
-        free_heap = int(str(msg,'utf-8'))
-
-    # turn off the WiFi Access Point
-    ap_if = network.WLAN(network.AP_IF)
-    ap_if.active(False)
-
-    # connect the device to the WiFi network
-    wifi = network.WLAN(network.STA_IF)
-    wifi.active(True)
-    wifi.connect(WIFI_SSID, WIFI_PASSWORD)
-
-    # wait until the device is connected to the WiFi network
-    MAX_ATTEMPTS = 20
-    attempt_count = 0
-    while not wifi.isconnected() and attempt_count < MAX_ATTEMPTS:
-        attempt_count += 1
-        time.sleep(1)
-
-    if attempt_count == MAX_ATTEMPTS:
-        raise ConnectionError
-        
         
 
 def connectToServer(ADAFRUIT_USERNAME: str, ADAFRUIT_IO_KEY: str):

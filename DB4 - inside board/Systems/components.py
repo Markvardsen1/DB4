@@ -1,16 +1,4 @@
-import time
-
-from electronicsAndPID import *
-
-#VARIABLES TO CHANGE:
-
-WIFI_SSID         = "dsfasGg"
-WIFI_PASSWORD     = "bahamondes"
-
-ADAFRUIT_USERNAME = "felimondes"
-ADAFRUIT_IO_KEY   = ""
-
-filePathToData = r'C:\Users\User\Desktop\DB4\DB4\Systems\data'
+from Systems.electronicsAndPID import *
 
 #OBJECTS TO USE:
 #temp sensor
@@ -24,10 +12,17 @@ direction_pin = 27
 stepperMotor = StepperMotor(stepper_pin, direction_pin)
 
 # smallDCMotor
+#inputA = 21
+#inputB = 17
+#EnableA = 16
+#smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
+
+
+# LED strip
 inputA = 21
 inputB = 17
 EnableA = 16
-smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
+ledStrip = LEDStrip(inputA, inputB, EnableA)
 
 
 # largeDCMotor maybe pins are swapped
@@ -38,8 +33,13 @@ largeDCMotor = LargeDCMotor(inputC, inputD, EnableB)
 
 
 # cooler - check with voltmeter if self.cooling_pin.value(1) is 12V or not
-cooling_pin = 12
-cooler = Cooler(cooling_pin)
+cooling_pin_Inp1 = 13
+fan_pin_Inp2 = 12
+cooler = Cooler(cooling_pin_Inp1)
+
+# fan 
+fan_pin_Inp2 = 12
+fan = Fan(fan_pin_Inp2)
 
 # OLEDScreen
 sclPin = 22
@@ -47,26 +47,12 @@ sdaPin = 23
 oledScreen = OLEDScreen(sclPin, sdaPin)
 
 # ODSensor
-ODSensorPin = 36
+ODSensorPin = 26
 odSensor = ODSensor(ODSensorPin) #TODO VALTYR GIMME GIMME MORE
 
 #Temperature PID controller #TODO temperature PID or flow rate / cooler PID???
-temperaturePID = PIDController()
+#temperaturePID = PIDController()
 
 #OD PID controller #TODO OD PID or light lamp PID???
-odPID = PIDController()
-
-#Connecting to wifi and getting clientjkjk
-try:
-    web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
-    client = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY) #Uncertain if this can work
-    mainONLINE.run(client)
-    
-except ConnectionError:
-    mainOFFLINE.run()
-    
-    
-    
-    
-
+#odPID = PIDController()
 

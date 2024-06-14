@@ -2,46 +2,6 @@
 import os
 
 
-def run():
-
-    iter = 0
-    while True:
-        
-        print(iter)
-        
-        temperature = temperatureSensor.getTemperature()
-        OD = odSensor.getOD()
-        #voltageLED = led.getVoltage #TODO
-        
-        #PID controllers #TODO
-
-        if iter == 200: #TODO Make iter large enough, so that it wont break the ping limit.
-            
-            #publishing data
-            
-            data = {
-                "temp": temperature
-                #"od": OD
-                #TODO add voltage of LED
-                }
-            
-            writeToFile(data)
-                        
-            #displaying stuff on OLED
-            oledScreen.display(data)
-            
-            
-            try:
-                web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
-                client_OFFLINE = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY)
-                publishFileToAdafruitIO(client_OFFLINE) #TODO this one does not work, "file is being used elsewhere"
-                mainONLINE.run(client_OFFLINE)
-    
-            except ConnectionError:
-                mainOFFLINE.run()
-
-        iter+=1
-
 
 
 
