@@ -56,7 +56,7 @@ temperaturePID = PIDController()
 #OD PID controller #TODO OD PID or light lamp PID???
 odPID = PIDController()
 
-#Connecting to wifi and getting client
+#Connecting to wifi and getting clientjkjk
 try:
     web.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
     client = web.connectToServer(ADAFRUIT_USERNAME, ADAFRUIT_IO_KEY) #Uncertain if this can work
