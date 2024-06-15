@@ -6,9 +6,9 @@ import machine
 
 class TemperatureSensor:
     
-    def __init__(self, pin, FixedResistor):
+    def __init__(self, pin):
         self.pin = pin
-        self.FixedResistor = FixedResistor
+        self.FixedResistor = 10000
         self.adc = machine.ADC(machine.Pin(self.pin))
         self.adc.atten(machine.ADC.ATTN_11DB)
         

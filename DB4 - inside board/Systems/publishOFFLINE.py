@@ -2,9 +2,6 @@
 import os
 
 
-
-
-
 def publishFileToAdafruitIO(filePathToData, dataFileName):
     filePathToData = os.path.join(filePathToData, dataFileName)
 

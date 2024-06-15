@@ -80,6 +80,9 @@ class OLEDScreen:
             self.display(data)
             time.sleep(1)
         
+        
+        print("test stopped, turning off OLED.")
+        self.stop()
     
         
         
