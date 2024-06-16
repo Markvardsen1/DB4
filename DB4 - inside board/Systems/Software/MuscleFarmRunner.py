@@ -1,9 +1,7 @@
 import time
 
-from main import *
-from Systems.components import *
-from Systems.Hardware import *
-from Systems.Software import *
+from components import *
+from constants import *
 
 
 class MuscleFarmRunner:

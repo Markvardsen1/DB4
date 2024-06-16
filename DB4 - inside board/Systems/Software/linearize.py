@@ -4,12 +4,10 @@
 # Set the desired ADC_MAX = 2^ADC_BIT_WIDTH-1 and the proper adc.width(ADC.WIDTH_10BIT)
 
 import gc
-from machine import Pin
-from machine import ADC
-from machine import DAC
 
 import machine
 import utime
+from machine import ADC, DAC, Pin
 
 ADC_DELAY = 10
 DAC_DELAY = 5

@@ -1,7 +1,7 @@
 import time
 
 from machine import I2C, Pin
-from Systems import ssd1306
+from Systems.Software import ssd1306
 
 
 class OLEDScreen:

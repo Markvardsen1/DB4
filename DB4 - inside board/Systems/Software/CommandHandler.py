@@ -1,7 +1,7 @@
 import time
 
 import machine
-from Systems.components import *
+from components import *
 
 
 def handleCommand(msg):

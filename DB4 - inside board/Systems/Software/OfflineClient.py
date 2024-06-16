@@ -1,19 +1,18 @@
-
 import uos
-from main import *
+from constants import DATAFILE, PATH_TO_DATAFILE_FOLDER
 
 
 class OfflineClient:
     
     def __init__(self):
         
-        self.pathToDataFileFolder = pathToDataFileFolder
-        self.dataFile = dataFile
-        self.filePath = self.pathToDataFileFolder + "\\" +  self.dataFile
+        self.PATH_TO_DATAFILE_FOLDER = PATH_TO_DATAFILE_FOLDER
+        self.DATAFILE = DATAFILE
+        self.filePath = self.PATH_TO_DATAFILE_FOLDER + "\\" +  self.DATAFILE
         
         if not self.doesDataExist(self.filePath):
             with open(self.filePath, 'w') as f:
-                uos.mkdir(self.pathToDataFileFolder)
+                uos.mkdir(self.PATH_TO_DATAFILE_FOLDER)
 
     def doesDataExist(self):
         try:

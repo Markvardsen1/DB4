@@ -3,7 +3,4 @@ print("BOOOOOOOOOTING UPPPPPP!!!!")
 
 
 
-from Systems.components import *
-
-oledScreen.displayMessage("suck my cock")
 
