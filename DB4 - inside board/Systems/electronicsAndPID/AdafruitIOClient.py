@@ -1,5 +1,7 @@
+import os
+
 import main
-from CommandHandler import handleCommand
+from Systems.CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
 
 

@@ -20,8 +20,33 @@ class OLEDScreen:
         self.items_list = []  # Initialize with an empty list
         self.current_index = 0
     
+    def displayMessage(self, message, scroll=False, delay=0.1):
+        # Clear the display
+        self.oled.fill(0)
         
-    def display(self, data_dict: dict) -> None:
+        # Center the text
+        width = 128
+        height = 32
+        text_length = len(message) * 8  # Approximate width of text in pixels
+        x = (width - text_length) // 2
+        y = (height - 8) // 2
+        
+        if scroll and text_length > width:
+            for start in range(0, text_length - width + 1):
+                self.oled.fill(0)
+                self.oled.text(message, -start, y)
+                self.oled.show()
+                time.sleep(delay)
+            for start in range(text_length - width, -1, -1):
+                self.oled.fill(0)
+                self.oled.text(message, -start, y)
+                self.oled.show()
+                time.sleep(delay)
+        else:
+            self.oled.text(message, x, y)
+            self.oled.show()
+        
+    def displayData(self, data_dict: dict) -> None:
         # Convert dictionary to a list of tuples (key, value)
         self.items_list = list(data_dict.items())
         self.oled.fill(0)
@@ -44,7 +69,7 @@ class OLEDScreen:
         self.oled.show()
         
     def start(self) -> None:
-        self.display(self.intializer)
+        self.displayData(self.intializer)
         
     def runTest(self):
         data = {
@@ -77,7 +102,7 @@ class OLEDScreen:
         print("running OLED runTest..")
     
         for i in range(10):
-            self.display(data)
+            self.displayData(data)
             time.sleep(1)
         
         

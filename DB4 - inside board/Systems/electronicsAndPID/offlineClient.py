@@ -1,27 +1,33 @@
 
-import os
+import uos
 
 
 class OfflineClient:
     
-    def __init__(self, filePathToFolder, dataFile):
+    def __init__(self, pathToDataFileFolder, dataFile):
         
-        self.filePathToFolder = filePathToFolder
-        self.dataFile = os.path.join(self.filePathToFolder, dataFile)
+        self.pathToDataFileFolder = pathToDataFileFolder
+        self.dataFile = dataFile
+        self.filePath = self.pathToDataFileFolder + "\\" +  self.dataFile
+        
+        if not self.doesDataExist(self.filePath):
+            with open(self.filePath, 'w') as f:
+                uos.mkdir(self.pathToDataFileFolder)
 
-        # Create the data directory if it doesn't exist
-        if not os.path.exists(self.filePathToFolder):
-            os.makedirs(self.filePathToFolder)
-
-    def deleteFile(self): #TODO this should only delete file no?
-        # Remove the text file after publishing
-        if os.path.exists(self.filePathToFolder):
+    def doesDataExist(self):
+        try:
+            uos.stat(self.filePath)
+            return True
+        except OSError:
+            return False
+    
+    def deleteFile(self):
+        if self.doesDataExist(self.filePath):
             try:
-                os.remove(self.filePathToFolder)
-                print(f"{self.filePathToFolder} has been removed.")
-            except Exception as e:
-                print(e)
-                #TODO go back to run the offline version
+                uos.remove(self.filePath)
+                print(f"{self.filePath} has been removed.")
+            except Exception:
+                pass
 
 
 

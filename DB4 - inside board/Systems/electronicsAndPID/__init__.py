@@ -5,7 +5,9 @@ from .DataPublisher import DataPublisher
 from .Fan import Fan
 from .LargeDCMotor import LargeDCMotor
 from .LEDStrip import LEDStrip
+from .MuscleFarmRunner import MuscleFarmRunner
 from .ODSensor import ODSensor
+from .OfflineClient import OfflineClient
 from .OLEDScreen import OLEDScreen
 from .PIDController import PIDController
 from .SmallDCMotor import SmallDCMotor

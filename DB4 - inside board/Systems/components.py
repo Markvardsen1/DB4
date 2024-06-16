@@ -62,6 +62,8 @@ odSensor = ODSensor(ODSensorPin) #TODO VALTYR GIMME GIMME MORE
 wifiConnecter = WifiConnecter(main.WIFI_SSID, main.WIFI_PASSWORD)
 
 adafruitIOClient = AdafruitIOClient(main.ADAFRUIT_USERNAME, main.ADAFRUIT_IO_KEY)
+offlineClient =  OfflineClient(main.pathToDataFileFolder, main.dataFile)
 
-dataPublisher = DataPublisher(adafruitIOClient)
+dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
+
 
