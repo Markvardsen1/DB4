@@ -1,18 +1,42 @@
 import time
 
+from main import *
 from Systems.components import *
-from Systems.electronicsAndPID import *
-from Systems.runOFFLINE import *
+from Systems.Hardware import *
+from Systems.Software import *
 
 
-class OfflineClient:
+class MuscleFarmRunner:
     
     
     def __init__(self):
         self.timeSinceLastPublish = time.time()
     
     
-    def runOFFLINE(self):
+    def isTimeToDoActions(self):
+                difference = time.time() - self.timeSinceLastPublish
+                return difference > 30
+    
+    def onlineMode(self):
+
+        while True:
+            
+            temperature = temperatureSensor.getTemperature()
+
+            #PID controllers #TODO
+            
+            adafruitIOClient.checkCommand()
+            
+            if self.isTimeToDoActions():
+                data = {
+                    "temp": temperature
+                    }
+                
+                dataPublisher.publishOnline(data)
+                self.timeSinceLastPublish = time.time()
+                
+                oledScreen.displayData(data)
+    def offlineMode(self):
 
         
         while True:
@@ -37,11 +61,9 @@ class OfflineClient:
             
                     if offlineClient.doesDataExist():
                         dataPublisher.importOfflineDataToOnline()
-                        OnlineClient.run()
+                        self.onlineMode()
 
                 except ConnectionError:
-                    runOFFLINE.run()
+                    self.offlineMode()
 
-    def ïsTimeToDoActions(self):
-                difference = time.time() - self.timeSinceLastPublish
-                return difference > 30
+    

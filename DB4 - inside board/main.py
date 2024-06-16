@@ -1,4 +1,7 @@
+
 from Systems.components import *
+from Systems.Hardware import *
+from Systems.Software import *
 
 #variables to change:
 WIFI_SSID         = "dsfasGg"
@@ -21,21 +24,20 @@ listOfFeeds = [
                         ]
 
 
-commandFeed = "Command feed"
+commandFeed = "SKRIV COMMANDS HER :D"
 
-
+wifiConnecter = WifiConnecter()
+adafruitIOClient = AdafruitIOClient()
+offlineClient = OfflineClient()
+dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
 
 
 def main():
-    
-    
     muscleFarmRunner = MuscleFarmRunner()
-    
 
     try:
-        wifiConnecter.connectToWifi(WIFI_SSID, WIFI_PASSWORD)
+        wifiConnecter.connectToWifi()
         adafruitIOClient.connectToAdafruitIO()
-        
         
         if offlineClient.doesDataExist():
             dataPublisher.importOfflineDataToOnline()
@@ -43,9 +45,8 @@ def main():
         muscleFarmRunner.onlineMode()
         
         
-
     except ConnectionError:
         
-        muscleFarmRunner.onlineMode()
+        muscleFarmRunner.offlineMode()
         
         

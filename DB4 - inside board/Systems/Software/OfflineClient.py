@@ -1,10 +1,11 @@
 
 import uos
+from main import *
 
 
 class OfflineClient:
     
-    def __init__(self, pathToDataFileFolder, dataFile):
+    def __init__(self):
         
         self.pathToDataFileFolder = pathToDataFileFolder
         self.dataFile = dataFile

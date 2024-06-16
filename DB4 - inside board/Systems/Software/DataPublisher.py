@@ -1,6 +1,3 @@
-import os
-
-
 class DataPublisher:
     
     def __init__(self, adafruitIOClient, offlineClient):

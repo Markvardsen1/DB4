@@ -1,11 +1,12 @@
 import time
 
 import network
+from main import *
 
 
 class WifiConnecter:
     
-    def __init__(self, WIFI_SSID, WIFI_PASSWORD):
+    def __init__(self):
 
         self.WIFI_SSID = WIFI_SSID
         self.WIFI_PASSWORD = WIFI_PASSWORD
