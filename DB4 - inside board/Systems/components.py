@@ -1,3 +1,5 @@
+from Systems.Hardware import *
+
 temperatureSensorPin = 25
 FixedResistor = 10000
 temperatureSensor= TemperatureSensor(temperatureSensorPin)

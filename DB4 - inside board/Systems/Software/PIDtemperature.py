@@ -1,15 +1,15 @@
+
+import components
 from PID import PID
-from SmallDCMotor import SmallDCMotor
-from TemperatureSensor import TemperatureSensor
 
 inputA = 21
 inputB = 17
 EnableA = 16
-smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
+smallDCMotor = components.SmallDCMotor
 
 temp_pin = 25
 FixedResistor = 10000
-tempSensor = TemperatureSensor(temp_pin, FixedResistor)
+tempSensor = components.temperatureSensor
 
 Kp = 1
 Ki = 0

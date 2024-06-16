@@ -1,7 +1,7 @@
 import os
 
-from main import *
-from Systems.CommandHandler import handleCommand
+from CommandHandler import handleCommand
+from constants import *
 from umqtt.robust import MQTTClient
 
 
@@ -13,12 +13,12 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
             self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
             self.client = self.createClient()
             
-            self.listOfFeeds = listOfFeeds
-            self.commandFeed = commandFeed
+            self.LIST_OF_FEEDS = LIST_OF_FEEDS
+            self.COMMAND_FEED = COMMAND_FEED
 
     def checkCommand(self):
             
-        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
+        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.COMMAND_FEED), 'utf-8')
         
         self.client.set_callback(self.cb)
         self.client.subscribe(mqtt_feedname)
@@ -42,7 +42,7 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
     def getMQQTFeed(self, feedName):
         
         
-        for feed in self.listOfFeeds:
+        for feed in self.LIST_OF_FEEDS:
             if feed == feedName:
                 
                 ADAFRUIT_IO_FEEDNAME = feed

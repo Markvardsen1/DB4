@@ -1,7 +1,7 @@
 import time
 
 import network
-from main import *
+from constants import WIFI_PASSWORD, WIFI_SSID
 
 
 class WifiConnecter:

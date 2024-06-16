@@ -21,7 +21,7 @@ class DataPublisher:
             except Exception:
                     raise ConnectionError
                 
-        for feedName in self.adafruitIOClient.listOfFeeds:
+        for feedName in self.adafruitIOClient.LIST_OF_FEEDS:
                 
                 try:
                     self.publishOnline(data[feedName], feedName)
@@ -35,7 +35,7 @@ class DataPublisher:
     def publishOffline(self, data: dict):
     
         # Append the data to the text file
-        file = open(self.offlineClient.client.dataFile, 'a')
+        file = open(self.offlineClient.client.DATAFILE, 'a')
         
         
         # Write the key-value pairs in a single line separated by commas
@@ -49,7 +49,7 @@ class DataPublisher:
     def importOfflineDataToOnline(self):
         
         # Open the text file and read its contents
-        file = open(self.offlineClient.client.dataFile, 'r')
+        file = open(self.offlineClient.client.DATAFILE, 'r')
         lines = file.readlines()
         file.close()  # Close the file after reading
         

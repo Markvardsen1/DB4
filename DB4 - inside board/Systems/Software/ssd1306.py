@@ -1,8 +1,8 @@
 # MicroPython SSD1306 OLED driver, I2C and SPI interfaces
 
 import time
-import framebuf
 
+import framebuf
 
 # register definitions
 SET_CONTRAST        = const(0x81)
