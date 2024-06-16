@@ -8,6 +8,7 @@ class ODSensor:
 
     #TODO test if this works
     OPTIMAL_DAC = 232
+    maxValue = 4095
     
     def __init__(self, pin):
         pin = Pin(pin)

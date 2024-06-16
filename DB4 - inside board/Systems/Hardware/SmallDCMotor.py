@@ -8,6 +8,9 @@ class SmallDCMotor:
         DEFAULT_FREQUENCY = 1000
         DEFAULT_DUTY_CYCLE = 450
         
+        maxCycles = 1023
+        minCycles = 450 #FIGURE OUT THE MINIMUM DUTY CYCLE FOR THE MOTOR
+        
         def __init__(self, inputA, inputB, EnableA):
                 self.InA = machine.Pin(inputA, machine.Pin.OUT)
                 self.InB = machine.Pin(inputB, machine.Pin.OUT)
@@ -38,3 +41,25 @@ class SmallDCMotor:
                 self.pwmA.duty(0)
         
         
+        def testMinAndMaxDuty(self):
+                print("running small DC testMinAndMaxDuty....")
+                duty = 0
+                while duty < self.maxCycles:
+                        self.setSpeedCycles(duty)
+                        time.sleep(0.01)
+                        duty += 1
+                
+                print("Test is done")
+                time.sleep(3)
+
+        def testMaxSpeed(self):
+                
+                print("running small DC testMaxSpeed....")
+                iter = 0
+                while iter < 1000:
+                        print("running at max speed")
+                        self.setSpeedCycles(self.maxCycles)
+                        time.sleep(0.01)
+                        iter +=1
+                
+                print("Test is done")
