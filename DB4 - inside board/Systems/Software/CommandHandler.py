@@ -1,7 +1,6 @@
 import time
 
 import machine
-from electronicsAndPID import *
 from Systems.components import *
 
 
@@ -10,9 +9,12 @@ def handleCommand(msg):
     if msg.startswith("cooler("):
         content_str = (msg[len("cooler("):-1])
 
-        match content_str:
-            case "on": cooler.start()
-            case "off": cooler.stop()
+        
+        if content_str == "on":
+            cooler.start()
+            
+        elif content_str == "off":
+            cooler.stop()
         
         #if msg.startswith("pump("): #TODO names in this functions are wrong
         #    content_int = int ( (msg[len("pump("):-1]))
@@ -20,7 +22,7 @@ def handleCommand(msg):
         #    if content_int <= 100 and content_int >= 0:
         #        StepperMotor.setSpeed(content_int)
         #    else:
-        #        OLEDScreen.display("Input needs to be: 0 to 100")
+        #        OLEDScreen.displayData("Input needs to be: 0 to 100")
                 
         #if msg.startswith("led("):
         #    content_int = int ( (msg[len("led("):-1]))
@@ -28,7 +30,7 @@ def handleCommand(msg):
         #    if content_int <= 100 and content_int >= 0:
         #        LED.setLight(content_int)
         #    else:
-        #        OLEDScreen.display("Input needs to be: 0 to 100")
+        #        OLEDScreen.displayData("Input needs to be: 0 to 100")
         
         
     if msg.startswith("open"):

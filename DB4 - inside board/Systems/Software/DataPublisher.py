@@ -1,6 +1,3 @@
-import os
-
-
 class DataPublisher:
     
     def __init__(self, adafruitIOClient, offlineClient):
@@ -58,13 +55,15 @@ class DataPublisher:
         
         # Iterate through each line in the text file
         for line in lines:
+            
+            
             # Parse the line into a dictionary
-            
             data = dict(item.split(":") for item in line.strip().split(","))
+            self.publishOnline(data)
             
-
-        #After all data is imported, we can just delete the file
+            
         self.offlineClient.deleteFile()
+        
 
 
 

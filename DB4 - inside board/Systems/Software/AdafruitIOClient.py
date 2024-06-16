@@ -1,18 +1,20 @@
-import main
-from CommandHandler import handleCommand
+import os
+
+from main import *
+from Systems.CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
 
 
 class AdafruitIOClient: #TODO consider remaking this class, the structure is kinda weird
 
-    def __init__(self, ADAFRUIT_USERNAME: str, ADAFRUIT_IO_KEY: str):
+    def __init__(self):
         
             self.ADAFRUIT_USERNAME = ADAFRUIT_USERNAME
             self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
             self.client = self.createClient()
             
-            self.listOfFeeds = main.listOfFeeds
-            self.commandFeed = main.commandFeed
+            self.listOfFeeds = listOfFeeds
+            self.commandFeed = commandFeed
 
     def checkCommand(self):
             
