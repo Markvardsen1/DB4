@@ -1,18 +1,42 @@
 import main
+from CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
 
 
-class AdafruitIOClient:
+class AdafruitIOClient: #TODO consider remaking this class, the structure is kinda weird
 
     def __init__(self, ADAFRUIT_USERNAME: str, ADAFRUIT_IO_KEY: str):
         
             self.ADAFRUIT_USERNAME = ADAFRUIT_USERNAME
             self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
             self.client = self.createClient()
-            self.listOfFeeds = main.listOfFeeds
             
+            self.listOfFeeds = main.listOfFeeds
+            self.commandFeed = main.commandFeed
 
-    
+    def checkCommand(self):
+            
+        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
+        
+        self.client.set_callback(self.cb)
+        self.client.subscribe(mqtt_feedname)
+
+        mqtt_feedname_get = bytes('{:s}/get'.format(mqtt_feedname), 'utf-8')
+        self.client.publish(mqtt_feedname_get, '\0')
+            
+            
+        try:
+                self.client.check_msg() #TODO: maybe we have to do wait.msg instead... also code is different when using "check" vs "wait"
+        
+        except Exception:
+                raise ConnectionError
+            
+            
+    def cb(self, topic, msg):
+            msg = msg.lower()
+            handleCommand(msg)
+
+
     def getMQQTFeed(self, feedName):
         
         
@@ -23,8 +47,6 @@ class AdafruitIOClient:
                 return bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, ADAFRUIT_IO_FEEDNAME), 'utf-8')
             
         return None
-        
-        
         
     
     def createClient(self):
@@ -47,6 +69,7 @@ class AdafruitIOClient:
                             ssl=False)
         
         return client
+
     
     def connectToAdafruitIO(self):
 
@@ -54,3 +77,5 @@ class AdafruitIOClient:
                 self.client.connect()
             except Exception:
                 raise ConnectionError
+
+
