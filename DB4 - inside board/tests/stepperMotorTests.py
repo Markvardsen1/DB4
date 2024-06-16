@@ -2,6 +2,8 @@ import time
 
 import machine
 from Systems import components
-from Systems.electronicsAndPID import *
+from Systems.Hardware import *
 
-components.stepperMotor
+components.stepperMotor.testMinAndMaxDuty
+components.stepperMotor.testRunnningBothDirections
+components.stepperMotor.testMaxSpeed

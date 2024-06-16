@@ -1,15 +1,6 @@
 from PID import PID
-from SmallDCMotor import SmallDCMotor
-from TemperatureSensor import TemperatureSensor
-
-inputA = 21
-inputB = 17
-EnableA = 16
-smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
-
-temp_pin = 25
-FixedResistor = 10000
-tempSensor = TemperatureSensor(temp_pin, FixedResistor)
+from Systems.Hardware import *
+from Systems import components
 
 Kp = 1
 Ki = 0
@@ -25,15 +16,14 @@ pid = PID(
     output_limits=(0, 100)
     )
 
-
 while True: 
-    curentPIDValue = pid(tempSensor.getTemperature())
+    curentPIDValue = pid(components.temperatureSensor.getTemperature())
     
     if curentPIDValue >= 10: 
-        smallDCMotor.setDutyCycle(curentPIDValue * 10)
+        components.smallDCMotor.setDutyCycle(curentPIDValue * 10)
         print('PID Value:', curentPIDValue)
-        print('Temperature:', tempSensor.getTemperature())
+        print('Temperature:', components.temperatureSensor.getTemperature())
     else:
-        smallDCMotor.setDutyCycle(0)
+        components.smallDCMotor.setDutyCycle(0)
         
     
