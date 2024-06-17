@@ -106,7 +106,10 @@ class StepperMotor:
                         time.sleep(0.01)
                         iter +=1
         
-        def testRunnningBothDirections(self):
+        def testRunnningBothDirections90degrees(self):
+                
+                ninetyDegrees = 90
+                
                 print("running StepperMotor testRunnningBothDirections....")
                 self.setDirection(0) # TODO: check if this is clockwise
                 self.step(100)
