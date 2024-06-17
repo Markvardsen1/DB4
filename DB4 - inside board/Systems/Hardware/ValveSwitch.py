@@ -7,15 +7,13 @@ import machine
 class ValveSwitch:
         
         DEFAULT_delay = 0.1
-        DEFAULT_frequency = 1000
-        DEFAULT_duty_cycle = 0
         
         minCycles = 450 #TODO TEST THIS VALUE
         maxCycles = 1023 #TODO TEST THIS VALUE
         
         
         
-        defaultFrequency = 1000
+        defaultFrequency = 800
         currentDutyCycle = 0
         
         
@@ -32,6 +30,10 @@ class ValveSwitch:
                 self.direction = 0 #clockwise
                 
                 self.pwm = machine.PWM(step_pin_number)
+
+                self.pwm.duty(self.currentDutyCycle)
+                self.pwm.freq(self.defaultFrequency)
+                
                 
         def start(self):
                 self.pwm.duty(self.duty_cycle)

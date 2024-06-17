@@ -5,8 +5,6 @@ from machine import ADC, DAC, Pin
 
 class ODSensor:
     
-
-    #TODO test if this works
     OPTIMAL_DAC = 232
     maxValue = 4095
     
