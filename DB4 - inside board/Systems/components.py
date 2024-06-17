@@ -1,6 +1,13 @@
 
-from Systems.Hardware import (Cooler, Fan, LargeDCMotor, LEDStrip, ODSensor,
-                              OLEDScreen, StepperMotor, TemperatureSensor)
+from Systems.Hardware import *
+from Systems.Hardware.Cooler import Cooler
+from Systems.Hardware.Fan import Fan
+from Systems.Hardware.LargeDCMotor import LargeDCMotor
+from Systems.Hardware.LEDStrip import LEDStrip
+from Systems.Hardware.ODSensor import ODSensor
+from Systems.Hardware.OLEDScreen import OLEDScreen
+from Systems.Hardware.StepperMotor import StepperMotor
+from Systems.Hardware.TemperatureSensor import TemperatureSensor
 
 temperatureSensorPin = 25
 FixedResistor = 10000

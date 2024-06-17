@@ -51,9 +51,10 @@ class LEDStrip:
                 
         def testMinAndMaxDuty(self):
                 print("running LED testMinAndMaxDuty....")
+                self.start()
                 duty = 0
                 while duty < self.maxCycles:
-                        self.setSpeedCycles(duty)
+                        self.setLight(duty)
                         time.sleep(0.01)
                         duty += 1
                 
@@ -63,10 +64,12 @@ class LEDStrip:
         def testMaxLight(self):
                 
                 print("running LED testMaxLight....")
+                
+                self.start()
                 iter = 0
                 while iter < 1000:
                         print("running at max light")
-                        self.setSpeedCycles(self.maxCycles)
+                        self.setLight(self.maxCycles)
                         time.sleep(0.01)
                         iter +=1
                 

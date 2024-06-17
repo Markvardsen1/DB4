@@ -21,12 +21,12 @@ class Cooler:
         for i in range(3):
             
             print("turning cooler on") # YES ITS A 0, ITS FLIPPED
-            time.sleep(3)        
             self.coolingPin.value(0)
             time.sleep(3)
             
             print("turning cooler off") # YES ITS A 1, ITS FLIPPED
             self.coolingPin.value(1)
+            time.sleep(3)
 
 
 

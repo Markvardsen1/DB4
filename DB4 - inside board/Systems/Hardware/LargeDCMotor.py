@@ -48,6 +48,8 @@ class LargeDCMotor:
         
         def testMinAndMaxDuty(self):
                 print("running large DC testMinAndMaxDuty....")
+                
+                self.start()
                 duty = 0
                 while duty < self.maxCycles:
                         self.setSpeedCycles(duty)
@@ -60,6 +62,7 @@ class LargeDCMotor:
         def testMaxSpeed(self):
                 
                 print("running large DC testMaxSpeed....")
+                self.start()
                 iter = 0
                 while iter < 1000:
                         print("running at max speed")
