@@ -1,5 +1,4 @@
 import uos
-from constants import DATAFILE, PATH_TO_DATAFILE_FOLDER
 
 
 class OfflineClient:
