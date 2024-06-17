@@ -1,5 +1,7 @@
-from Systems.Software import (AdafruitIOClient, DataPublisher, OfflineClient,
-                              WifiConnecter)
+from Systems.Software.AdafruitIOClient import AdafruitIOClient
+from Systems.Software.DataPublisher import DataPublisher
+from Systems.Software.OfflineClient import OfflineClient
+from Systems.Software.WifiConnecter import WifiConnecter
 
 #variables to change:
 WIFI_SSID         = "dsfasGg"
