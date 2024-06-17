@@ -54,6 +54,7 @@ class LEDStrip:
                 self.start()
                 duty = 0
                 while duty < self.maxCycles:
+                        print(duty)
                         self.setLight(duty)
                         time.sleep(0.01)
                         duty += 1

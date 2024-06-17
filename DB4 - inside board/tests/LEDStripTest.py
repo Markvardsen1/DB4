@@ -7,8 +7,11 @@ from Systems import components
 #components.ledStrip.testMaxLight()
 #components.ledStrip.testMinAndMaxDuty()
 
+#components.ledStrip.testMinAndMaxDuty()
+
 components.ledStrip.start()
-components.ledStrip.setLight(450)
+components.ledStrip.setLight(1023)
 
 while True:
-    print("hejsa")
+    print("hej .)")
+    
