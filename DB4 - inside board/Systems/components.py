@@ -6,8 +6,8 @@ from Systems.Hardware.LargeDCMotor import LargeDCMotor
 from Systems.Hardware.LEDStrip import LEDStrip
 from Systems.Hardware.ODSensor import ODSensor
 from Systems.Hardware.OLEDScreen import OLEDScreen
-from Systems.Hardware.StepperMotor import StepperMotor
 from Systems.Hardware.TemperatureSensor import TemperatureSensor
+from Systems.Hardware.ValveSwitch import ValveSwitch
 
 temperatureSensorPin = 25
 FixedResistor = 10000
@@ -16,7 +16,7 @@ temperatureSensor= TemperatureSensor(temperatureSensorPin)
 
 stepper_pin = 33
 direction_pin = 27
-stepperMotor = StepperMotor(stepper_pin, direction_pin)
+valveSwitch = ValveSwitch(stepper_pin, direction_pin)
 
 
 #inputA = 21

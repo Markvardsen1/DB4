@@ -4,15 +4,23 @@ import machine
 
 
 #TODO FIX FUNCTION NAMES
-class StepperMotor:
+class ValveSwitch:
         
         DEFAULT_delay = 0.1
-        DEFAULT_frequency = 0
+        DEFAULT_frequency = 1000
         DEFAULT_duty_cycle = 0
         
         minCycles = 450 #TODO TEST THIS VALUE
         maxCycles = 1023 #TODO TEST THIS VALUE
         
+        
+        
+        defaultFrequency = 1000
+        currentDutyCycle = 0
+        
+        
+        maxCycles = 1023
+        minCycles = 450 #adjust this according to system
         
         def __init__(self, step_pin_number: int, dir_pin_number : int):
                 self.step_pin = machine.Pin(step_pin_number, machine.Pin.OUT)
@@ -31,20 +39,11 @@ class StepperMotor:
         def stop(self):
                 self.pwm.duty(0)
 
-        def step(self, steps: int):
-                self.start()
-                for _ in range(steps):
-                        self.pwm.freq(self.frequency)
-                        time.sleep(self.delay)
-                        self.stop()
-
         def setSpeedCycle(self, dutyCycle : int):
                 self.duty_cycle = dutyCycle
                 self.pwm.duty(dutyCycle)
-
-        def setFreq(self, frequency : int ):
-                self.frequency = frequency
-                self.pwm.freq(frequency)
+        
+        
         
         def setSpeedPercentage(self, percentage : int):
                 self.duty_cycle = self.percentageToDutyCycle(percentage)
@@ -52,64 +51,17 @@ class StepperMotor:
 
         def getSpeedPercentage(self):
                 percentage = self.dutyCycleToPercentage(self.duty_cycle)
-                return percentage                
-
-        def setDirection(self, direction):
-                if direction== 0 or direction==1:
-                        self.direction=direction
-                        self.dir_pin.value(direction)
-                else:
-                        print("Please provide a direction that is either 0 or 1 :)")
-
-        def increase_speed(self, start_freq, end_freq, step, delay):
-                for freq in range(start_freq, end_freq, step):
-                        self.frequency = freq
-                        self.pwm.freq(freq)
-                        time.sleep(delay)
-                        print(freq)
-
-        def decrease_speed(self, start_freq, end_freq, step, delay):
-                for freq in range(start_freq, end_freq, -step):
-                        self.frequency = freq
-                        self.pwm.freq(freq)
-                        time.sleep(delay)
-                        print(freq)
+                return percentage
                         
-
         def percentageToDutyCycle(self, percentage):
                 dutyCycle = ((self.maxCycles - self.minCycles)*percentage/100) + self.minCycles
                 return dutyCycle
 
-        
         def dutyCycleToPercentage(self, dutyCycle):
                 percentage = 100 * ((dutyCycle - self.minCycles)/(self.maxCycles - self.minCycles))
                 return percentage
 
-        def turn90Degrees():
-                self.step(90)
-                time.sleep(3)
-                self.step(90)
-                time.sleep(3)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         def testMinAndMaxDuty(self):
                 print("running StepperMotor testMinAndMaxDuty....")
                 duty = 0
@@ -129,25 +81,3 @@ class StepperMotor:
                         self.setSpeedCycle(self.maxCycles)
                         time.sleep(0.01)
                         iter +=1
-        
-        def testRunnningBothDirections90degrees(self):
-                
-                self.setFreq(1000) 
-                print("running StepperMotor testRunnningBothDirections....")
-                self.setDirection(0) # TODO: check if this is clockwise
-                self.step(100)
-                time.sleep(3)
-                self.setDirection(1) # TODO: check if this is anti-clockwise
-                self.step(100)
-                time.sleep(3)
-                print("Test is done")
-                time.sleep(3)
-        
-        
-        
-        
-        
-        
-        
-        
-        

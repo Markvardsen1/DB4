@@ -27,6 +27,7 @@ class LargeDCMotor:
                 self.inputC.value(0)
 
         def setSpeedCycles(self, dutyCycles):
+                self.pwmB.freq(self.defaultFrequency )
                 self.pwmB.duty(dutyCycles)
         
         def setSpeedPercentage(self, percentage):
@@ -58,6 +59,7 @@ class LargeDCMotor:
                 
                 print("Test is done")
                 time.sleep(3)
+                self.stop()
 
         def testMaxSpeed(self):
                 
@@ -71,3 +73,4 @@ class LargeDCMotor:
                         iter +=1
                 
                 print("Test is done")
+                self.stop()

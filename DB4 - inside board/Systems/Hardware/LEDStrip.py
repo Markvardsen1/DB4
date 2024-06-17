@@ -61,6 +61,7 @@ class LEDStrip:
                 
                 print("Test is done")
                 time.sleep(3)
+                self.stop()
                 
         def testMaxLight(self):
                 
@@ -75,6 +76,7 @@ class LEDStrip:
                         iter +=1
                 
                 print("Test is done")
+                self.stop()
 
         
         
