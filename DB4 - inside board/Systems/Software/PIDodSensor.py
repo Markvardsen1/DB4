@@ -12,16 +12,29 @@ pidForODSensor = PID(
     output_limits=(0, 1000)
     )
 
-while True:
-    latestODOuput = components.ODSensor.getOD()
-    latestPIDOutput = pidForODSensor(latestODOuput)
-    
-    if latestPIDOutput >= components.ODSensor.maxValue / 2:
-        print("too many algaes have grown --> reducing light\n")
-        components.ledStrip.setLightPercentage(20)
+def runPIDforODSensor():
+    while True: 
+        curentPIDValue = pidForODSensor(components.ODSensor.getOD())
         
-    else: 
-        print("too few algaes have grown --> increasing light\n")
-        components.ledStrip.setLightPercentage(80)
+        if curentPIDValue >= 10: 
+            components.ledStrip.setLightPercentage(curentPIDValue)
+            print('PID Value:', curentPIDValue)
+            print('OD:', components.ODSensor.getOD())
+        else:
+            components.ledStrip.setLightPercentage(0)
+
+def runTest():
+    while True: 
+        latestODOuput = components.ODSensor.getOD()
+        latestPIDOutput = pidForODSensor(latestODOuput)
+        Pterm, Dterm, Iterm = pidForODSensor.components
+        print("OD: ", latestODOuput)
+        print("PID output: ", latestPIDOutput)
+        print("Pterm: ", Pterm)
+        print("Dterm: ", Dterm)
+        print("Iterm: ", Iterm)
+        time.sleep(2)
+        
+if __name__ == '__main__':
+    runPIDforODSensor()
     
-    time.sleep(2)
