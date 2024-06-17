@@ -4,10 +4,24 @@ import machine
 from Systems import components
 from Systems.Hardware import *
 
-components.valveSwitch.start()
-components.valveSwitch.setSpeedCycle(800)
+components.valveSwitch.setSpeedCycle(1000)
 
 
-while True:
-    print("hej:DDD")
-    time.sleep(0.1)
+time.sleep(3)
+
+
+print("starting switch test")
+
+print("turning on")
+components.valveSwitch.ON()
+
+
+components.valveSwitch.setSpeedCycle(0)
+
+time.sleep(2)
+components.valveSwitch.setSpeedCycle(1000)
+print("turning off")
+components.valveSwitch.OFF()
+
+components.valveSwitch.setSpeedCycle(0)
+

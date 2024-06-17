@@ -3,82 +3,59 @@ import time
 import machine
 
 
-#TODO FIX FUNCTION NAMES
 class ValveSwitch:
         
-        DEFAULT_delay = 0.1
-        
-        minCycles = 450 #TODO TEST THIS VALUE
-        maxCycles = 1023 #TODO TEST THIS VALUE
-        
-        
-        
-        defaultFrequency = 800
+        delay = 0.1
+        frequency = 800
         currentDutyCycle = 0
+        currentDirection = 0
         
-        
+        minCycles = 450
         maxCycles = 1023
-        minCycles = 450 #adjust this according to system
+
+        step_angle = 1.8  # stepper motor step angle in degrees
+        steps_per_revolution = int(360 / step_angle)  # total steps per full 360-degree revolution
+
         
         def __init__(self, step_pin_number: int, dir_pin_number : int):
                 self.step_pin = machine.Pin(step_pin_number, machine.Pin.OUT)
                 self.dir_pin = machine.Pin(dir_pin_number, machine.Pin.OUT)
-                
-                self.delay = self.DEFAULT_delay
-                self.frequency = self.DEFAULT_frequency
-                self.duty_cycle = self.DEFAULT_duty_cycle
-                self.direction = 0 #clockwise
-                
+
                 self.pwm = machine.PWM(step_pin_number)
-
-                self.pwm.duty(self.currentDutyCycle)
-                self.pwm.freq(self.defaultFrequency)
                 
+                self.pwm.freq(self.frequency) 
                 
-        def start(self):
-                self.pwm.duty(self.duty_cycle)
 
-        def stop(self):
-                self.pwm.duty(0)
-
-        def setSpeedCycle(self, dutyCycle : int):
+        def setSpeedCycle(self, dutyCycle):
+                
+                self.currentDutyCycle = dutyCycle
                 self.duty_cycle = dutyCycle
                 self.pwm.duty(dutyCycle)
         
         
+        def step(self, direction, steps):
+                self.dir_pin.value(direction)
+                for _ in range(steps):
+                        self.step_pin.value(1)
+                        time.sleep(self.delay)
+                        self.step_pin.value(0)
+                        time.sleep(self.delay)
         
-        def setSpeedPercentage(self, percentage : int):
-                self.duty_cycle = self.percentageToDutyCycle(percentage)
-                self.pwm.duty(self.duty_cycle)
+        def ON(self):
+                print("Turning motor ON: 90 degrees clockwise")
+                steps_for_90_degrees = int(90 / self.step_angle)
+                self.step(1, steps_for_90_degrees)  # assuming 1 is the direction for clockwise
+        
+        def OFF(self):
+                print("Turning motor OFF: 90 degrees counter clockwise")
+                steps_for_90_degrees = int(90 / self.step_angle)
+                self.step(0, steps_for_90_degrees)  # assuming 0 is the direction for counter clockwise
 
-        def getSpeedPercentage(self):
-                percentage = self.dutyCycleToPercentage(self.duty_cycle)
-                return percentage
-                        
-        def percentageToDutyCycle(self, percentage):
-                dutyCycle = ((self.maxCycles - self.minCycles)*percentage/100) + self.minCycles
-                return dutyCycle
-
-        def dutyCycleToPercentage(self, dutyCycle):
-                percentage = 100 * ((dutyCycle - self.minCycles)/(self.maxCycles - self.minCycles))
-                return percentage
-
-
-        def testMinAndMaxDuty(self):
-                print("running StepperMotor testMinAndMaxDuty....")
-                duty = 0
-                while duty < self.maxCycles:
-                        self.setSpeedCycle(duty)
-                        time.sleep(0.01)
-                        duty += 1
-                
-                print("Test is done")
-                time.sleep(3)
         
         def testMaxSpeed(self):
                 print("running StepperMotor testMaxSpeed....")
                 iter = 0
-                while iter < 1000:
+                while iter < 250:
                         print("running at max speed")
                         self.setSpeedCycle(self.maxCycles)
                         time.sleep(0.01)

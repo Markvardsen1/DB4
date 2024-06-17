@@ -5,7 +5,7 @@ import machine
 
 class LargeDCMotor:
         
-        defaultFrequency = 1000
+        frequency = 1000
         currentDutyCycle = 0
         
         maxCycles = 1023
@@ -17,6 +17,11 @@ class LargeDCMotor:
                 self.inputC = machine.Pin(inputC, machine.Pin.OUT)
                 self.EnableB = machine.Pin(EnableB, machine.Pin.OUT)
                 self.pwmB = machine.PWM(self.EnableB)
+                
+                self.pwmB.freq(self.frequency )
+
+
+
 
         def start(self):
                 self.inputD.value(0)
@@ -27,7 +32,7 @@ class LargeDCMotor:
                 self.inputC.value(0)
 
         def setSpeedCycles(self, dutyCycles):
-                self.pwmB.freq(self.defaultFrequency )
+                self.currentDutyCycle = dutyCycles
                 self.pwmB.duty(dutyCycles)
         
         def setSpeedPercentage(self, percentage):

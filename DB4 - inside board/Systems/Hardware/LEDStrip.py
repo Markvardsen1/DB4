@@ -5,17 +5,21 @@ import machine
 
 class LEDStrip:
         
-        defaultFrequency = 1000
+        frequency = 1000
         currentDutyCycle = 0
         
         maxCycles = 1023
         minCycles = 0
+        
         
         def __init__(self, inputA, inputB, EnableAbleA):
                 self.inputA = machine.Pin(inputA, machine.Pin.OUT)
                 self.inputB = machine.Pin(inputB, machine.Pin.OUT)
                 self.EnableA = machine.Pin(EnableAbleA, machine.Pin.OUT)
                 self.pwmA = machine.PWM(self.EnableA)
+        
+                
+                
                 
         def start(self):
                 self.inputA.value(0)
@@ -29,6 +33,7 @@ class LEDStrip:
         
         
         def setLight(self, dutyCycle):
+                self.currentDutyCycle = dutyCycle
                 self.pwmA.duty(dutyCycle)
         
         
