@@ -85,6 +85,30 @@ class StepperMotor:
                 percentage = 100 * ((dutyCycle - self.minCycles)/(self.maxCycles - self.minCycles))
                 return percentage
 
+        def turn90Degrees():
+                self.step(90)
+                time.sleep(3)
+                self.step(90)
+                time.sleep(3)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         def testMinAndMaxDuty(self):
                 print("running StepperMotor testMinAndMaxDuty....")
