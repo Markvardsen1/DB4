@@ -9,6 +9,20 @@ from Systems.Hardware.OLEDScreen import OLEDScreen
 from Systems.Hardware.TemperatureSensor import TemperatureSensor
 from Systems.Hardware.ValveSwitch import ValveSwitch
 
+
+#notes
+
+#yellow = 12v
+#red = 5v
+#white = 3v
+#green ground
+
+
+#relay :
+#vcc = 12v 
+
+
+
 temperatureSensorPin = 25
 FixedResistor = 10000
 temperatureSensor= TemperatureSensor(temperatureSensorPin)
@@ -38,7 +52,6 @@ largeDCMotor = LargeDCMotor(inputC, inputD, EnableB)
 
 
 cooling_pin_Inp1 = 13
-fan_pin_Inp2 = 12
 cooler = Cooler(cooling_pin_Inp1)
 
 

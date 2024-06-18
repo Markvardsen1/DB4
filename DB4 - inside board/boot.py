@@ -17,7 +17,4 @@ time.sleep(1)
 components.oledScreen.displayMessage("STARTING UP")
 time.sleep(1)
 components.ledStrip.stop()
-time.sleep(1)
-print("stopping switch")
-components.valveSwitch.setSpeedCycle(0)
 
