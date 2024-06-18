@@ -21,8 +21,6 @@ class LargeDCMotor: #TODO rename this
                 self.pwmB.freq(self.frequency )
 
 
-
-
         def start(self):
                 self.inputD.value(1)
                 self.inputC.value(0)

@@ -9,7 +9,6 @@ from Systems.Hardware.OLEDScreen import OLEDScreen
 from Systems.Hardware.TemperatureSensor import TemperatureSensor
 from Systems.Hardware.ValveSwitch import ValveSwitch
 
-
 #notes
 
 #yellow = 12v
@@ -66,4 +65,9 @@ oledScreen = OLEDScreen(sclPin, sdaPin)
 
 ODSensorPin = 26
 odSensor = ODSensor(ODSensorPin)
+
+
+#TODO Mathis fix this 
+pidTemperatureController = PIDController()
+pidODController = PIDController()
 
