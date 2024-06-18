@@ -11,9 +11,6 @@ def main():
         wifiConnecter.connectToWifi()
         adafruitIOClient.connectToAdafruitIO()
         
-        if offlineClient.doesDataExist():
-            dataPublisher.importOfflineDataToOnline()
-        
         muscleFarmRunner.onlineMode()
         
         

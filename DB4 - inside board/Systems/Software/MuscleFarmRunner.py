@@ -17,9 +17,16 @@ class MuscleFarmRunner:
     
     def onlineMode(self):
 
+        if offlineClient.doesDataExist():
+                oledScreen.displayMessage("COMMANED NEEDED! Do you want to save or errase datafile?")
+                adafruitIOClient.waitCommand()
+                
+
+
         while True:
             
             temperature = temperatureSensor.getTemperature()
+            od = odSensor.getOD()
 
             #PID controllers #TODO
             
@@ -27,13 +34,17 @@ class MuscleFarmRunner:
             
             if self.isTimeToDoActions():
                 data = {
-                    "temp": temperature
+                    "temp": temperature,
+                    "od": od,
+                    "Mode": "online"
                     }
                 
                 dataPublisher.publishOnline(data)
                 self.timeSinceLastPublish = time.time()
                 
                 oledScreen.displayData(data)
+    
+    
     def offlineMode(self):
 
         
@@ -44,7 +55,7 @@ class MuscleFarmRunner:
             
             #PID controllers #TODO
             
-            if self.ïsTimeToDoActions():
+            if self.isTimeToDoActions():
                 data = {
                         "temp": temperature
                     }
@@ -56,11 +67,8 @@ class MuscleFarmRunner:
                 try:
                     wifiConnecter.connectToWifi()
                     adafruitIOClient.connectToAdafruitIO()
-            
-                    if offlineClient.doesDataExist():
-                        dataPublisher.importOfflineDataToOnline()
-                        self.onlineMode()
-
+                    self.onlineMode()
+                
                 except ConnectionError:
                     self.offlineMode()
 

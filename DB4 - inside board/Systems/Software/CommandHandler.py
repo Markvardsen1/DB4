@@ -7,40 +7,53 @@ from Systems.constants import *
 
 def handleCommand(msg):
 
+
+    if msg == "ERASE":
+        offlineClient.deleteFile()
+        oledScreen.displayMessage("ERASING :D")
+
+    if msg == "PUBLISH":
+        dataPublisher.importOfflineDataToOnline()
+        oledScreen.displayMessage("Publishing :D")
+        
+
     if msg.startswith("cooler("):
         content_str = (msg[len("cooler("):-1])
 
-        
         if content_str == "on":
             cooler.start()
             
         elif content_str == "off":
             cooler.stop()
-        
-        #if msg.startswith("pump("): #TODO names in this functions are wrong
-        #    content_int = int ( (msg[len("pump("):-1]))
-
-        #    if content_int <= 100 and content_int >= 0:
-        #        StepperMotor.setSpeed(content_int)
-        #    else:
-        #        OLEDScreen.displayData("Input needs to be: 0 to 100")
-                
-        #if msg.startswith("led("):
-        #    content_int = int ( (msg[len("led("):-1]))
-
-        #    if content_int <= 100 and content_int >= 0:
-        #        LED.setLight(content_int)
-        #    else:
-        #        OLEDScreen.displayData("Input needs to be: 0 to 100")
-        
-        
-    if msg.startswith("open"):
-        content_str = (msg[len("open("):-1])
-
-        #match content_str:
-            #case "MW": StepperMotor.turnOnMW #TODO these functions need to be made
-            #case "CW": StepperMotor.turnOnCW #TODO these functions need to be made
     
-    if msg.startswith("oled("):
-        content_str = (msg[len("open("):-1])
-        oledScreen.displayTemporary(content_str)
+    if msg.startswith("fan("):
+        content_str = (msg[len("fan("):-1])
+
+        if content_str == "on":
+            fan.startFan()
+            
+        elif content_str == "off":
+            fan.stopFan()
+
+    if msg.startswith("pump("):
+        content_str = (msg[len("pump("):-1])
+        largeDCMotor.setSpeedPercentage(int(content_str))
+        
+
+    if msg.startswith("led("):
+        content_str = (msg[len("led("):-1])
+        ledStrip.setSpeedPercentage(int(content_str))
+
+
+    if msg.startswith("switch("):
+        content_str = (msg[len("cooler("):-1])
+
+        if content_str == "on":
+            valveSwitch.ON()
+            
+        elif content_str == "off":
+            valveSwitch.OFF()
+
+        
+    
+

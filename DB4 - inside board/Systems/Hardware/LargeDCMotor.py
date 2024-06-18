@@ -3,9 +3,9 @@ import time
 import machine
 
 
-class LargeDCMotor:
+class LargeDCMotor: #TODO rename this 
         
-        frequency = 1000
+        frequency = s1000
         currentDutyCycle = 0
         
         maxCycles = 1023

@@ -17,6 +17,28 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
             self.LIST_OF_FEEDS = LIST_OF_FEEDS
             self.COMMAND_FEED = COMMAND_FEED
 
+
+            
+
+
+    def waitCommand(self):
+            
+        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.COMMAND_FEED), 'utf-8')
+        
+        self.client.set_callback(self.cb)
+        self.client.subscribe(mqtt_feedname)
+
+        mqtt_feedname_get = bytes('{:s}/get'.format(mqtt_feedname), 'utf-8')
+        self.client.publish(mqtt_feedname_get, '\0')
+            
+            
+        try:
+                self.client.wait_msg() 
+
+        except Exception:
+                raise ConnectionError
+    
+
     def checkCommand(self):
             
         mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.COMMAND_FEED), 'utf-8')
@@ -29,7 +51,7 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
             
             
         try:
-                self.client.check_msg() #TODO: maybe we have to do wait.msg instead... also code is different when using "check" vs "wait"
+                self.client.check_msg()
         
         except Exception:
                 raise ConnectionError
