@@ -5,7 +5,7 @@ import machine
 
 class ValveSwitch:
         
-        delay = 1
+        delay = 0.04
         frequency = 800
         currentDutyCycle = 0
         currentDirection = 0
@@ -18,15 +18,15 @@ class ValveSwitch:
                 self.step_pin = machine.Pin(step_pin_number, machine.Pin.OUT)
                 self.dir_pin = machine.Pin(dir_pin_number, machine.Pin.OUT)
 
-                self.pwm = machine.PWM(step_pin_number)
-                self.pwm.freq(self.frequency) 
+                # self.pwm = machine.PWM(step_pin_number)
+                # self.pwm.freq(self.frequency) 
                 
 
-        def setSpeedCycle(self, dutyCycle):
+        # def setSpeedCycle(self, dutyCycle):
                 
-                self.currentDutyCycle = dutyCycle
-                self.duty_cycle = dutyCycle
-                self.pwm.duty(dutyCycle)
+        #         self.currentDutyCycle = dutyCycle
+        #         self.duty_cycle = dutyCycle
+        #         self.pwm.duty(dutyCycle)
 
         
 
@@ -35,37 +35,41 @@ class ValveSwitch:
                 self.dir_pin.value(direction)
                 for _ in range(steps):
                         self.step_pin.value(1)
-                        print("running")
                         time.sleep(self.delay)
                         self.step_pin.value(0)
                         time.sleep(self.delay)
+                        print(direction)
 
         
 
-        def testMaxSpeed(self):
-                print("running StepperMotor testMaxSpeed....")
-                iter = 0
-                while iter < 250:
-                        print("running at max speed")
-                        self.setSpeedCycle(self.maxCycles)
-                        time.sleep(0.01)
-                        iter +=1
+        # def testMaxSpeed(self):
+        #         print("running StepperMotor testMaxSpeed....")
+        #         iter = 0
+        #         while iter < 250:
+        #                 print("running at max speed")
+        #                 self.setSpeedCycle(self.maxCycles)
+        #                 time.sleep(0.01)
+        #                 iter +=1
         
         def testDelay(self):
                 print("running StepperMotor test delay!!!!!!!!!....")
                 
-                self.setSpeedCycle(0)
-                delay = 0.3
+                # self.setSpeedCycle(0)
+                delay = 0.1
                 
                 timeStart = print(time.time)
                 while delay > 0:
-                        print(delay)
-                        self.step_pin.value(1)
-                        time.sleep(delay)
-                        self.step_pin.value(0)
-                        time.sleep(delay)
-                        delay -= 0.01
-        
+                        for i in range(10):
+                                print(delay)
+                                self.step_pin.value(1)
+                                time.sleep(delay)
+                                self.step_pin.value(0)
+                                time.sleep(delay)
+                        delay -= 0.001
+                        
+        def testRotate(self, dir):
+                self.rotate(120,dir)
+                
                         
                         
                                 
