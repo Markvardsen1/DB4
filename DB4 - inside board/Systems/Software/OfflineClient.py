@@ -11,7 +11,7 @@ class OfflineClient:
         self.DATAFILE = DATAFILE
         self.filePath = self.PATH_TO_DATAFILE_FOLDER + "\\" +  self.DATAFILE
         
-        if not self.doesDataExist(self.filePath):
+        if not self.doesDataExist():
             with open(self.filePath, 'w') as f:
                 os.mkdir(self.PATH_TO_DATAFILE_FOLDER)
 

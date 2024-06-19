@@ -8,8 +8,8 @@ class LargeDCMotor: #TODO rename this
         frequency = 1000
         currentDutyCycle = 0
         
-        maxCycles = int (4 * 1023 / 10)
-        minCycles = 0 #adjust this according to system
+        maxCycles = int( 1023 )
+        minCycles = int( 450 )  #adjust this according to system
         
         
         def __init__(self, inputD, inputC, EnableB) -> None:
@@ -18,12 +18,14 @@ class LargeDCMotor: #TODO rename this
                 self.EnableB = machine.Pin(EnableB, machine.Pin.OUT)
                 self.pwmB = machine.PWM(self.EnableB)
                 
-                self.pwmB.freq(self.frequency)
+                self.pwmB.freq(self.frequency )
+
+
 
 
         def start(self):
-                self.inputD.value(1)
-                self.inputC.value(0)
+                self.inputD.value(0)
+                self.inputC.value(1)
                 
         def stop(self):
                 self.inputD.value(0)
@@ -50,6 +52,7 @@ class LargeDCMotor: #TODO rename this
                 dutyCycle = ((self.maxCycles - self.minCycles)*percentage/100) + self.minCycles
                 return dutyCycle
         
+
         def testMinAndMaxDuty(self):
                 print("running large DC testMinAndMaxDuty....")
                 
@@ -57,8 +60,10 @@ class LargeDCMotor: #TODO rename this
                 duty = 0
                 while duty < self.maxCycles:
                         self.setSpeedCycles(duty)
-                        time.sleep(0.01)
+                        time.sleep(0.2)
+                        print(duty)
                         duty += 1
+
                 
                 print("Test is done")
                 time.sleep(3)

@@ -16,7 +16,7 @@ pidForTemperatureSensor = PID.PID(
     setpoint=18,
     sample_time=0.1,
     scale='s',
-    output_limits=(-100, 100)
+    output_limits=(-100, 0)
     )
 
 def runPIDforTemperatureSensor():
@@ -25,7 +25,10 @@ def runPIDforTemperatureSensor():
         else:
             curentPIDValue = 0
 
-        components.largeDCMotor.setSpeedPercentage(int(curentPIDValue/2))
+        if curentPIDValue == 0: 
+             components.largeDCMotor.setSpeedCycles(0)
+        else:      
+            components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
         print('PID Value:' , curentPIDValue)
         print('Temperature:' , components.temperatureSensor.getAverageTemperature())
         time.sleep(0.5)

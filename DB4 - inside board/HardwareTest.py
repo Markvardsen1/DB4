@@ -8,12 +8,14 @@ from Systems import components
 components.fan.startFan()
 components.cooler.highCooling()
 
-procent = 2
+procent = 100
 
 components.largeDCMotor.start()
 components.largeDCMotor.setSpeedPercentage(procent)
+# components.largeDCMotor.setSpeedCycles(512)
+
 
 while True:
     print("Testing")
-    print(procent)
-    time.sleep(0.5)
+    print("h")
+    time.sleep(0.1)
