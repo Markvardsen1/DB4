@@ -37,8 +37,8 @@ class MuscleFarmRunner:
                 adafruitIOClient.waitCommand()
                 
         while True:
-            pidTemperatureController.adjust()
-            pidODController.adjust()
+            #pidTemperatureController.adjust()
+            #pidODController.adjust()
             
             adafruitIOClient.checkCommand() #TODO what happens if no new message has been sent??? does it do the command twice?
             
@@ -63,8 +63,8 @@ class MuscleFarmRunner:
             temperature = temperatureSensor.getTemperature()
             
             #PID controllers #TODO
-            pidTemperatureController.adjust()
-            pidODController.adjust()
+            #pidTemperatureController.adjust()
+            #pidODController.adjust()
         
             if self.isTimeToNextPublish():
                 
