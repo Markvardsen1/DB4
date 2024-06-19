@@ -1,4 +1,6 @@
 import utime
+import time 
+from Systems import components
 
 
 def _clamp(value, limits):
@@ -258,3 +260,17 @@ class PID(object):
         self._last_time = self.time()
         self._last_output = None
         self._last_input = None
+        
+    def runPIDforTemperatureSensor(self):
+        if components.temperatureSensor.getAverageTemperature() >= 18:
+            curentPIDValue = int(abs(self.__call__((components.temperatureSensor.getAverageTemperature()))))
+        else:
+            curentPIDValue = 0
+
+        if curentPIDValue == 0: 
+             components.largeDCMotor.setSpeedCycles(0)
+        else:      
+            components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
+        print('PID Value:' , curentPIDValue)
+        print('Temperature:' , components.temperatureSensor.getAverageTemperature())
+        time.sleep(0.5)

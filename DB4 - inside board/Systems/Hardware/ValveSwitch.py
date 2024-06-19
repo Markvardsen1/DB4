@@ -5,11 +5,10 @@ import machine
 
 class ValveSwitch:
 
-        def __init__(self, step_pin_number: int, dir_pin_number : int):
+        def __init__(self, step_pin_number: int, dir_pin_number : int ):
                 
                 self.step_pin = machine.Pin(step_pin_number, machine.Pin.OUT)
                 self.dir_pin = machine.Pin(dir_pin_number, machine.Pin.OUT)
-                
                 self.place = 0
                 
                         
@@ -17,7 +16,6 @@ class ValveSwitch:
                 if self.place == 0:
                         self.doSteps(50) #90 degrees
                         self.place = 1
-                        
                         print("Left turn")
                 elif self.place == 1:
                         self.doSteps(150) #270 degrees

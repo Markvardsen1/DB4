@@ -12,6 +12,7 @@ from Systems.Software.AdafruitIOClient import AdafruitIOClient
 from Systems.Software.DataPublisher import DataPublisher
 from Systems.Software.OfflineClient import OfflineClient
 from Systems.Software.WifiConnecter import WifiConnecter
+from Systems.Software.PIDandlinearization.PID import PID
 
 #notes
 
@@ -79,7 +80,7 @@ odSensor = ODSensor(ODSensorPin)
 
 
 #TODO Mathis fix this 
-#pidTemperatureController = PIDController()
+pidTemperatureController = PID(Kp=1.5, Ki=0.5, Kd=1.5, setpoint=18, sample_time=0.1, output_limits=(-100, 0))
 #pidODController = PIDController()
 
 wifiConnecter = WifiConnecter()
