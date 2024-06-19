@@ -12,7 +12,7 @@ ADAFRUIT_IO_KEY   = ""
 
 
 DATAFILE = 'data.txt'
-PATH_TO_DATAFILE_FOLDER = r"C:\Users\User\Desktop\DB4\DB4\DB4 - inside board\Systems" + "\\" + DATAFILE
+PATH_TO_DATAFILE_FOLDER = r"C:\Users\User\Desktop\DB4\DB4\DB4 - inside board" + "\\" + DATAFILE
 
 
 LIST_OF_FEEDS = [
@@ -26,7 +26,4 @@ LIST_OF_FEEDS = [
 COMMAND_FEED = "SKRIV COMMANDS HER :D"
 
 
-wifiConnecter = WifiConnecter()
-adafruitIOClient = AdafruitIOClient()
-offlineClient = OfflineClient()
-dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
+

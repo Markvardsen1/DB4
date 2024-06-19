@@ -1,7 +1,5 @@
 import os
 
-from Systems.components import *
-from Systems.constants import *
 from Systems.Software.CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
 
@@ -9,7 +7,9 @@ from umqtt.robust import MQTTClient
 class AdafruitIOClient: #TODO consider remaking this class, the structure is kinda weird
 
     def __init__(self):
-
+            from Systems.constants import (ADAFRUIT_IO_KEY, ADAFRUIT_USERNAME,
+                                           COMMAND_FEED, LIST_OF_FEEDS)
+            
             self.ADAFRUIT_USERNAME = ADAFRUIT_USERNAME
             self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
             self.client = self.createClient()

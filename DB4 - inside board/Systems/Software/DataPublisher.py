@@ -64,6 +64,20 @@ class DataPublisher:
             
         self.offlineClient.deleteFile()
         
+    
+    def testPublishData(self):
+        
+        data = {
+        "Temperature": "N",
+        "Humidity": "45%",
+        "Pressure": "1013hPa",
+        "Altitude": "500m",
+        "Wind Speed": "I",
+        
+    }
+        
+        self.publishOffline(data)
+        
 
 
 

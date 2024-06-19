@@ -8,6 +8,10 @@ from Systems.Hardware.ODSensor import ODSensor
 from Systems.Hardware.OLEDScreen import OLEDScreen
 from Systems.Hardware.TemperatureSensor import TemperatureSensor
 from Systems.Hardware.ValveSwitch import ValveSwitch
+from Systems.Software.AdafruitIOClient import AdafruitIOClient
+from Systems.Software.DataPublisher import DataPublisher
+from Systems.Software.OfflineClient import OfflineClient
+from Systems.Software.WifiConnecter import WifiConnecter
 
 #notes
 
@@ -21,6 +25,7 @@ from Systems.Hardware.ValveSwitch import ValveSwitch
 #vcc = 12v 
 
 
+#HARDWARE
 
 temperatureSensorPin = 25
 FixedResistor = 10000
@@ -67,7 +72,17 @@ ODSensorPin = 26
 odSensor = ODSensor(ODSensorPin)
 
 
+
+
+
+#SOFTWARE:
+
+
 #TODO Mathis fix this 
 #pidTemperatureController = PIDController()
 #pidODController = PIDController()
 
+wifiConnecter = WifiConnecter()
+adafruitIOClient = AdafruitIOClient()
+offlineClient = OfflineClient()
+dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
