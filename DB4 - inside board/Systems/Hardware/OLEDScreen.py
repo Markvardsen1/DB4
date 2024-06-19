@@ -20,7 +20,49 @@ class OLEDScreen:
         self.items_list = []  # Initialize with an empty list
         self.current_index = 0
     
-    def displayMessage(self, message, scroll=False, delay=0.1):
+    
+    
+    def displayLongerMessage(self, message):
+        
+        print ("OBS: VERIFER THAT displayLongerMessage works")
+        # Clear the display
+        self.oled.fill(0)
+        
+        # Display dimensions
+        width = 128
+        height = 32
+        text_length = len(message) * 8  # Approximate width of text in pixels
+        y = (height - 8) // 2
+        
+        # Determine if scrolling is needed
+        if text_length > width:
+            # Calculate elapsed time since last update
+            current_time = time.time()
+            elapsed_time = current_time - self.last_update
+            
+            # Update scroll position based on elapsed time
+            if elapsed_time > 0.1:  # Adjust the delay as needed
+                self.scroll_position += 1
+                self.last_update = current_time
+                
+            # Reset scroll position if the end is reached
+            if self.scroll_position > text_length:
+                self.scroll_position = -width
+            
+            # Display the scrolling text
+            start_pos = width - self.scroll_position
+            self.oled.text(message, start_pos, y)
+        else:
+            # Center the text if no scrolling is needed
+            x = (width - text_length) // 2
+            self.oled.text(message, x, y)
+        
+        # Update the display
+        self.oled.show()
+    
+    
+    
+    def displayMessage(self, message, scroll=False, delay=0.1): #TODO probably delete this one
         # Clear the display
         self.oled.fill(0)
         
