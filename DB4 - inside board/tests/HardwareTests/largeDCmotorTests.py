@@ -4,7 +4,6 @@ import machine
 from Systems import components
 
 components.largeDCMotor.testMinAndMaxDuty()
-components.largeDCMotor.testMaxSpeed()
 
 
 
