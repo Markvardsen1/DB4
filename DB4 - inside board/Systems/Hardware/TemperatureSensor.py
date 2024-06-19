@@ -19,9 +19,15 @@ class TemperatureSensor:
         return self.FixedResistor * (1023 / self.readADC() - 1)
 
     def getTemperature(self):
-        return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 #OBS: CALIBRATE HERE
+        return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 + 2#OBS: CALIBRATE HERE
 
-
+    def getAverageTemperature(self):
+        tempSum = 0
+        for _ in range(10):
+            tempSum = tempSum + self.getTemperature()
+        return tempSum / 10 
+        
+        
     def stop(self):
         self.adc.atten(machine.ADC.ATTN_0DB)
         

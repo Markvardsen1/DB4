@@ -8,8 +8,8 @@ class LargeDCMotor: #TODO rename this
         frequency = 1000
         currentDutyCycle = 0
         
-        maxCycles = 1023
-        minCycles = 450 #adjust this according to system
+        maxCycles = int (4 * 1023 / 10)
+        minCycles = 0 #adjust this according to system
         
         
         def __init__(self, inputD, inputC, EnableB) -> None:
@@ -18,7 +18,7 @@ class LargeDCMotor: #TODO rename this
                 self.EnableB = machine.Pin(EnableB, machine.Pin.OUT)
                 self.pwmB = machine.PWM(self.EnableB)
                 
-                self.pwmB.freq(self.frequency )
+                self.pwmB.freq(self.frequency)
 
 
         def start(self):
