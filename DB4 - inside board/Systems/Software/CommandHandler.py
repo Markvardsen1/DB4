@@ -1,12 +1,13 @@
 import time
 
 import machine
-from Systems.components import *
-from Systems.constants import *
 
 
 def handleCommand(msg):
 
+    from Systems.components import (cooler, dataPublisher, fan, largeDCMotor,
+                                    ledStrip, offlineClient, oledScreen,
+                                    valveSwitch)
 
     if msg == "ERASE":
         offlineClient.deleteFile()
@@ -53,6 +54,12 @@ def handleCommand(msg):
             
         elif content_str == "off":
             valveSwitch.OFF()
+            
+    if msg.startswith("oled("):
+        content_str = (msg[len("oled"):-1])
+        oledScreen.displayMessage(content_str)
+        
+        
 
         
     
