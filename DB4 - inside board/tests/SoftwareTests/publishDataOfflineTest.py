@@ -1,3 +1,3 @@
-from HardwareTests.dab import variable
+from Systems import components
 
-print(variable)
+components.dataPublisher.testOfflinePublishData()

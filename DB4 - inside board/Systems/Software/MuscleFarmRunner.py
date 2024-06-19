@@ -1,7 +1,7 @@
 import time
 
-from Systems.components import *
-from Systems.constants import *
+from Systems import components
+from Systems.constants import secBetweenPublishes
 
 
 class MuscleFarmRunner:
@@ -9,58 +9,61 @@ class MuscleFarmRunner:
     
     def __init__(self):
         self.timeSinceLastPublish = time.time()
-        self.currentMode = None
-    
-    
-    def getData(self) -> dict:
         
-        data = {
-                "temp": temperatureSensor.getTemperature(),
-                "od": odSensor.getOD(),
-                "Mode": self.currentMode
+        self.currentMode = None
+        self.data = None
+        self.oledDisplay = None
+    
+    
+    def makeOledDisplay(self) -> dict:
+        self.oledDisplay = {
+                "mode": self.currentMode
                 }
         
-        return data
+        return self.oledDisplay.update(self.data)
         
-                
-    
+        
+        
+    def takeData(self) -> dict:
+        self.data = {
+                "temp": components.temperatureSensor.getTemperature(),
+                "od": components.odSensor.getOD(),
+                }
+        
     def isTimeToNextPublish(self):
                 difference = time.time() - self.timeSinceLastPublish
-                return difference > 30
+                return difference > secBetweenPublishes
     
-    def onlineMode(self):
+    
 
+    def onlineMode(self):
         self.currentMode = "Online"
         
-        if offlineClient.doesDataExist():
-                oledScreen.displayMessage("COMMANED NEEDED! Do you want to save or erase datafile?")
-                adafruitIOClient.waitCommand()
+        if components.offlineClient.doesDataExist():
+                components.oledScreen.displayMessage("COMMANED NEEDED! Do you want to save or erase datafile?")
+                components.adafruitIOClient.waitCommand()
                 
         while True:
             #pidTemperatureController.adjust()
             #pidODController.adjust()
             
-            adafruitIOClient.checkCommand() #TODO what happens if no new message has been sent??? does it do the command twice?
+            components.adafruitIOClient.checkCommand() #TODO what happens if no new message has been sent??? does it do the command twice?
             
             if self.isTimeToNextPublish():
+                self.takeData()
+                components.dataPublisher.publishOnline(self.data)
                 
-                data=self.getData()
-                dataPublisher.publishOnline(data)
+                oledDisplay = self.getOledDisplay()
+                components.oledScreen.displayData(oledDisplay)
                 
                 self.timeSinceLastPublish = time.time()
-                oledScreen.displayData(data)
-    
-    
+
+
     def offlineMode(self):
-        
-        
         self.currentMode = "Online"
-    
-        oledScreen.displayMessage("CONNECTION LOST, running OFFLINE MODE")
+        components.oledScreen.displayMessage("CONNECTION LOST, running OFFLINE MODE")
         
         while True:
-            #Get measurements
-            temperature = temperatureSensor.getTemperature()
             
             #PID controllers #TODO
             #pidTemperatureController.adjust()
@@ -68,14 +71,14 @@ class MuscleFarmRunner:
         
             if self.isTimeToNextPublish():
                 
-                data = self.getData()
+                data = self.takeData()
                 
-                dataPublisher.publishOffline(data)
-                oledScreen.displayData(data)
+                components.dataPublisher.publishOffline(data)
+                components.oledScreen.displayData(data)
                 
                 try:
-                    wifiConnecter.connectToWifi()
-                    adafruitIOClient.connectToAdafruitIO()
+                    components.wifiConnecter.connectToWifi()
+                    components.adafruitIOClient.connectToAdafruitIO()
                     self.onlineMode()
                 
                 except ConnectionError:

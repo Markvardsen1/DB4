@@ -30,3 +30,17 @@ class WifiConnecter:
 
         if attempt_count == MAX_ATTEMPTS:
             raise ConnectionError
+        
+    def testWifiConnecter(self):
+        
+        print("Running wifi test")
+        try:
+            print("Trying to connect to wifi...")
+            self.connectToWifi()
+            print("Connected :DDD")
+            
+        except ConnectionError:
+            print("no connection")
+        
+        
+        

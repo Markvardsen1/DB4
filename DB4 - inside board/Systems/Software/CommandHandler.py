@@ -54,6 +54,12 @@ def handleCommand(msg):
             
         elif content_str == "off":
             valveSwitch.OFF()
+            
+    if msg.startswith("oled("):
+        content_str = (msg[len("oled"):-1])
+        oledScreen.displayMessage(content_str)
+        
+        
 
         
     

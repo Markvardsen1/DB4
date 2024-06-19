@@ -15,15 +15,14 @@ DATAFILE = 'data.txt'
 PATH_TO_DATAFILE_FOLDER = r"C:\Users\User\Desktop\DB4\DB4\DB4 - inside board" + "\\" + DATAFILE
 
 
-LIST_OF_FEEDS = [
-                        "Temperature",
-                        
-                        
-                        
+
+listOfDataFeeds = [
+                        "temp",
+                        "od",
                         ]
 
+commandFeed = "SKRIV COMMANDS HER :D"
 
-COMMAND_FEED = "SKRIV COMMANDS HER :D"
-
+secBetweenPublishes = len(listOfDataFeeds)*10
 
 

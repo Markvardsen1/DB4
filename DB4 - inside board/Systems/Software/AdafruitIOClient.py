@@ -1,4 +1,5 @@
 import os
+import time
 
 from Systems.Software.CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
@@ -8,14 +9,14 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
 
     def __init__(self):
             from Systems.constants import (ADAFRUIT_IO_KEY, ADAFRUIT_USERNAME,
-                                           COMMAND_FEED, LIST_OF_FEEDS)
+                                           commandFeed, listOfDataFeeds)
             
             self.ADAFRUIT_USERNAME = ADAFRUIT_USERNAME
             self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
             self.client = self.createClient()
             
-            self.LIST_OF_FEEDS = LIST_OF_FEEDS
-            self.COMMAND_FEED = COMMAND_FEED
+            self.listOfDataFeeds = listOfDataFeeds
+            self.commandFeed = commandFeed
 
 
             
@@ -23,7 +24,7 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
 
     def waitCommand(self):
             
-        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.COMMAND_FEED), 'utf-8')
+        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
         
         self.client.set_callback(self.cb)
         self.client.subscribe(mqtt_feedname)
@@ -41,7 +42,7 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
 
     def checkCommand(self):
             
-        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.COMMAND_FEED), 'utf-8')
+        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
         
         self.client.set_callback(self.cb)
         self.client.subscribe(mqtt_feedname)
@@ -65,7 +66,7 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
     def getMQQTFeed(self, feedName):
         
         
-        for feed in self.LIST_OF_FEEDS:
+        for feed in self.listOfDataFeeds:
             if feed == feedName:
                 
                 ADAFRUIT_IO_FEEDNAME = feed
@@ -104,3 +105,10 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
                 raise ConnectionError
 
 
+    def testSubscribeAndReactToAdaFruit(self):
+        
+        print("checking for new command in 10 sec")
+        self.checkCommand()
+        time.sleep(5)
+        print("waiting for you to input a command")
+        self.waitCommand()

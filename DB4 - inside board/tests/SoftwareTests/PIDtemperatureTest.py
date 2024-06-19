@@ -2,7 +2,6 @@ import time
 
 import machine
 from Systems import components
-from Systems.Hardware import *
 from Systems.Software import PID, PIDtemperature
 
 # TODO set Kp, Ki, Kd at arbitrary values
