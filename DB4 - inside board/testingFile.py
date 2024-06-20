@@ -1,0 +1,15 @@
+
+
+import time
+import machine
+from Systems import components
+
+
+components.largeDCMotor.start()
+components.largeDCMotor.currentDutyCycle(1023)
+    
+    
+    
+
+
+

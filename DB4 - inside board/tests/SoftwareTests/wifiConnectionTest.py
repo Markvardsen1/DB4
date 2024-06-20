@@ -1,6 +1,6 @@
 from Systems import components
 
-components.wifiConnecter.connectToWifi()
+components.wifiConnecter.testWifiConnecter()
 
 
 

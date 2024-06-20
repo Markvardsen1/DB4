@@ -11,8 +11,8 @@ from Systems.Hardware.ValveSwitch import ValveSwitch
 from Systems.Software.AdafruitIOClient import AdafruitIOClient
 from Systems.Software.DataPublisher import DataPublisher
 from Systems.Software.OfflineClient import OfflineClient
-from Systems.Software.WifiConnecter import WifiConnecter
 from Systems.Software.PIDandlinearization.PID import PID
+from Systems.Software.WifiConnecter import WifiConnecter
 
 #notes
 
@@ -33,9 +33,10 @@ FixedResistor = 10000
 temperatureSensor= TemperatureSensor(temperatureSensorPin)
 
 
+enable_pin = 25
 stepper_pin = 33
 direction_pin = 27
-valveSwitch = ValveSwitch(stepper_pin, direction_pin)
+valveSwitch = ValveSwitch(stepper_pin, direction_pin, enable_pin)
 
 
 #inputA = 21
@@ -44,23 +45,24 @@ valveSwitch = ValveSwitch(stepper_pin, direction_pin)
 #smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
 
 
-inputA = 21
-inputB = 17
-EnableA = 16
-ledStrip = LEDStrip(inputA, inputB, EnableA)
-
+inputA = 16 #rx
+inputB = 17 #tx
+EnableA = 21 #21
+largeDCMotor = LargeDCMotor(inputA, inputB, EnableA)
 
 inputC = 15
 inputD = 14
 EnableB = 32
-largeDCMotor = LargeDCMotor(inputC, inputD, EnableB)
+# Green = Output D
+# Yellow = Output C
+ledStrip = LEDStrip(inputC, inputD, EnableB)
 
 
-cooling_pin_Inp1 = 13
+cooling_pin_Inp1 = 12
 cooler = Cooler(cooling_pin_Inp1)
 
 
-fan_pin_Inp2 = 12
+fan_pin_Inp2 = 13
 fan = Fan(fan_pin_Inp2)
 
 

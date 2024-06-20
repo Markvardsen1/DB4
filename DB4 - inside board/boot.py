@@ -8,13 +8,13 @@ import machine
 from Systems import components
 
 components.fan.stopFan()
-time.sleep(1)
-print("stopping fan")
+time.sleep(0.01)
 components.cooler.lowCooling()
-time.sleep(1)
+time.sleep(0.01)
 components.largeDCMotor.stop()
-time.sleep(1)
-components.oledScreen.displayMessage("STARTING UP")
-time.sleep(1)
+time.sleep(0.01)
 components.ledStrip.stop()
+time.sleep(0.01)
+
+
 

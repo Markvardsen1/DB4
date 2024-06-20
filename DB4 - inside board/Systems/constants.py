@@ -7,22 +7,23 @@ from Systems.Software.WifiConnecter import *
 WIFI_SSID         = "dsfasGg"
 WIFI_PASSWORD     = "bahamondes"
 
-ADAFRUIT_USERNAME = "felimondes"
-ADAFRUIT_IO_KEY   = ""
+ADAFRUIT_USERNAME = 'felimondes'
+"ADAFRUIT_IO_KEY   = None"
 
 
 DATAFILE = 'data.txt'
-PATH_TO_DATAFILE_FOLDER = r"C:\Users\User\Desktop\DB4\DB4\DB4 - inside board" + "\\" + DATAFILE
+PATH_TO_DATAFILE_FOLDER = r"C:\Users\felim\OneDrive\Skrivebord\DB4\DB4\DB4 - inside board"
 
 
 
 listOfDataFeeds = [
                         "temp",
                         "od",
+                        "pump"
+                        "pump1"
                         ]
 
 commandFeed = "SKRIV COMMANDS HER :D"
 
-secBetweenPublishes = len(listOfDataFeeds)*10
-
+secBetweenPublishes = 30
 

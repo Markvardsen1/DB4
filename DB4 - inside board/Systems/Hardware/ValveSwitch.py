@@ -5,11 +5,24 @@ import machine
 
 class ValveSwitch:
 
-        def __init__(self, step_pin_number: int, dir_pin_number : int ):
+        def __init__(self, step_pin_number: int, dir_pin_number : int, enable_pin_number ):
                 
                 self.step_pin = machine.Pin(step_pin_number, machine.Pin.OUT)
                 self.dir_pin = machine.Pin(dir_pin_number, machine.Pin.OUT)
+                self.enable_pin = machine.Pin(enable_pin_number, machine.Pin.OUT)
                 self.place = 0
+                
+                self.pwm = machine.PWM(self.enable_pin)
+        
+        
+        def stop(self):
+                self.enable_pin.value(1)  # Set the enable pin high to disable the motor
+
+        def start(self):
+                self.enable_pin.value(0)  
+                self.pwm.freq(1000)
+                self.pwm.duty(1023)
+
                 
                         
         def switch(self): # this is a solution in order to switch the valves without checking the direction... WORKS 

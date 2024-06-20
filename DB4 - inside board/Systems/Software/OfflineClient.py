@@ -1,4 +1,4 @@
-import os  # TODO CHANGE THIS
+import uos  # TODO CHANGE THIS
 
 
 class OfflineClient:
@@ -9,15 +9,15 @@ class OfflineClient:
         
         self.PATH_TO_DATAFILE_FOLDER = PATH_TO_DATAFILE_FOLDER
         self.DATAFILE = DATAFILE
-        self.filePath = self.PATH_TO_DATAFILE_FOLDER + "\\" +  self.DATAFILE
+        self.filePath = self.PATH_TO_DATAFILE_FOLDER
         
         if not self.doesDataExist():
             with open(self.filePath, 'w') as f:
-                os.mkdir(self.PATH_TO_DATAFILE_FOLDER)
+                uos.mkdir(self.PATH_TO_DATAFILE_FOLDER)
 
     def doesDataExist(self):
         try:
-            os.stat(self.filePath)
+            uos.stat(self.filePath)
             return True
         except OSError:
             return False
@@ -25,10 +25,11 @@ class OfflineClient:
     def deleteFile(self):
         if self.doesDataExist(self.filePath):
             try:
-                os.remove(self.filePath)
+                uos.remove(self.filePath + "\\" + self.DATAFILE)
                 print(f"{self.filePath} has been removed.")
             except Exception:
                 pass
+                print("failed to remove data file")
 
 
 

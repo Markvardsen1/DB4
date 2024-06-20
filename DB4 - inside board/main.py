@@ -1,6 +1,5 @@
 
-from Systems.constants import (adafruitIOClient, dataPublisher, offlineClient,
-                               wifiConnecter)
+from Systems.components import adafruitIOClient, wifiConnecter
 from Systems.Software.MuscleFarmRunner import MuscleFarmRunner
 
 
@@ -10,10 +9,8 @@ def main():
     try:
         wifiConnecter.connectToWifi()
         adafruitIOClient.connectToAdafruitIO()
-        
         muscleFarmRunner.onlineMode()
         
-        
-    except ConnectionError:
+    except ZeroDivisionError:
         
         muscleFarmRunner.offlineMode()

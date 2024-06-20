@@ -30,18 +30,11 @@ class MuscleFarmRunner:
                 "od": components.odSensor.getOD(),
                 }
         
-    def isTimeToNextPublish(self):
-                difference = time.time() - self.timeSinceLastPublish
-                return difference > secBetweenPublishes
-    
-    
 
+    
     def onlineMode(self):
         self.currentMode = "Online"
         
-        if components.offlineClient.doesDataExist():
-                components.oledScreen.displayMessage("COMMANED NEEDED! Do you want to save or erase datafile?")
-                components.adafruitIOClient.waitCommand()
                 
         while True:
             #pidTemperatureController.adjust()
@@ -81,7 +74,7 @@ class MuscleFarmRunner:
                     components.adafruitIOClient.connectToAdafruitIO()
                     self.onlineMode()
                 
-                except ConnectionError:
+                except ZeroDivisionError:
                     self.offlineMode()
 
     

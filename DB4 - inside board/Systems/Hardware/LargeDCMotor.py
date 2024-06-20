@@ -3,7 +3,7 @@ import time
 import machine
 
 
-class LargeDCMotor: #TODO rename this 
+class LargeDCMotor: #TODO rename this
         
         frequency = 1000
         currentDutyCycle = 0
@@ -21,8 +21,6 @@ class LargeDCMotor: #TODO rename this
                 self.pwmB.freq(self.frequency )
 
 
-
-
         def start(self):
                 self.inputD.value(0)
                 self.inputC.value(1)
@@ -34,6 +32,8 @@ class LargeDCMotor: #TODO rename this
         def setSpeedCycles(self, dutyCycles):
                 self.currentDutyCycle = dutyCycles
                 self.pwmB.duty(dutyCycles)
+                
+                
         
         def setSpeedPercentage(self, percentage):
                 self.currentDutyCycle = self.percentageToDutyCycle(percentage)

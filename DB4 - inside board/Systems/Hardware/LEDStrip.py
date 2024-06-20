@@ -82,6 +82,3 @@ class LEDStrip:
                 
                 print("Test is done")
                 self.stop()
-
-        
-        

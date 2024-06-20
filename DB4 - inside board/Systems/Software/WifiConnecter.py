@@ -25,10 +25,12 @@ class WifiConnecter:
         MAX_ATTEMPTS = 20
         attempt_count = 0
         while not wifi.isconnected() and attempt_count < MAX_ATTEMPTS:
+            print("attempting to connect...")
             attempt_count += 1
-            time.sleep(1)
+            time.sleep(0.5)
 
         if attempt_count == MAX_ATTEMPTS:
+            print("no connection")
             raise ConnectionError
         
     def testWifiConnecter(self):
@@ -39,8 +41,8 @@ class WifiConnecter:
             self.connectToWifi()
             print("Connected :DDD")
             
-        except ConnectionError:
-            print("no connection")
+        except ZeroDivisionError:
+            print("couldnt connect")
         
         
         

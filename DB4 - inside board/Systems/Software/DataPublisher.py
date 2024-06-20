@@ -1,3 +1,5 @@
+import time
+
 from Systems import constants
 
 
@@ -8,34 +10,46 @@ class DataPublisher:
         self.adafruitIOClient = adafruitIOClient
         self.offlineClient = offlineClient
 
+    
+    
+            
 
-    def publishOnline(self, data:dict):
-        def publishOnline_helper(data, feedName):
+
+    def publishOnline(self, data : dict):
+        
+        def publishOnline_helper(key, data : int):
+                    
+                mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.adafruitIOClient.ADAFRUIT_USERNAME, bytes (key)), 'utf-8')
                 
-                    mqtt_feedname = self.adafruitIOClient.getMQQTFeed(feedName)
                 
-                    try:
-                            self.adafruitIOClient.client.publish(mqtt_feedname,
-                                    bytes(data, 'utf-8'),
-                                    qos=0)
-                        
-                    except Exception:
-                            raise ConnectionError
+                print(mqtt_feedname)
                 
-        for feedName in constants.listOfDataFeeds:
+                self.adafruitIOClient.client.publish(mqtt_feedname,
+                                bytes(data, 'utf-8'),
+                                qos=0)
+                
+                print("data published to" + key)
+                                    
+        for key in data:
+            
                 try:
-                    publishOnline_helper(data[feedName], feedName)
+                    publishOnline_helper(key[data],)
                 
                 except Exception:
+                    print("failed to publish data")
                     pass
 
 
 
     def publishOffline(self, data: dict):
-    
-        # Append the data to the text file
-        file = open(self.offlineClient.client.DATAFILE, 'a')
         
+        self.lastPublish = time.time()
+        self.nextPublish = self.lastPublish + constants.secBetweenPublishes + self.publishDelay
+        
+        # Append the data to the text file
+        file = open(self.offlineClient.DATAFILE, 'a')
+        
+        print("file")
         
         # Write the key-value pairs in a single line separated by commas
         line = ",".join([f"{key}:{value}" for key, value in data.items()])
@@ -48,7 +62,7 @@ class DataPublisher:
     def importOfflineDataToOnline(self):
         
         # Open the text file and read its contents
-        file = open(self.offlineClient.client.DATAFILE, 'r')
+        file = open(self.offlineClient.DATAFILE, 'r')
         lines = file.readlines()
         file.close()  # Close the file after reading
         
@@ -75,11 +89,9 @@ class DataPublisher:
         self.publishOffline(data)
         
     def testOnlinePublishData(self):
+        
         data = {
-        "Temperature": "N",
-        "Humidity": "45%",
-        "Pressure": "1013hPa",
-        "Altitude": "500m",
-        "Wind Speed": "I",
+        "temp": 5,
+        "od": 6,
     }
         self.publishOnline(data)
