@@ -11,7 +11,6 @@ class DataPublisher:
         self.offlineClient = offlineClient
 
     
-<<<<<<< HEAD
     def publishOnline(self, data : dict):
                 
                 def publishOnline_helper(key: str, data):
@@ -29,36 +28,6 @@ class DataPublisher:
                         
                         print("data published to" + key)
                 
-=======
-    
-            
-
-
-    def publishOnline(self, data : dict):
-        
-        def publishOnline_helper(key, data : int):
-                    
-                mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.adafruitIOClient.ADAFRUIT_USERNAME, bytes (key)), 'utf-8')
-                
-                
-                print(mqtt_feedname)
-                
-                self.adafruitIOClient.client.publish(mqtt_feedname,
-                                bytes(data, 'utf-8'),
-                                qos=0)
-                
-                print("data published to" + key)
-                                    
-        for key in data:
-            
-                try:
-                    publishOnline_helper(key[data],)
-                
-                except Exception:
-                    print("failed to publish data")
-                    pass
-
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
                 for key in data:
                         
@@ -73,12 +42,6 @@ class DataPublisher:
 
     def publishOffline(self, data: dict):
         
-<<<<<<< HEAD
-=======
-        self.lastPublish = time.time()
-        self.nextPublish = self.lastPublish + constants.secBetweenPublishes + self.publishDelay
-        
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
         # Append the data to the text file
         file = open(self.offlineClient.DATAFILE, 'a')
         
@@ -113,24 +76,3 @@ class DataPublisher:
         self.offlineClient.deleteFile()
         
     
-<<<<<<< HEAD
-
-=======
-    def testOfflinePublishData(self):
-        data = {
-        "Temperature": "N",
-        "Humidity": "45%",
-        "Pressure": "1013hPa",
-        "Altitude": "500m",
-        "Wind Speed": "I",
-    }
-        self.publishOffline(data)
-        
-    def testOnlinePublishData(self):
-        
-        data = {
-        "temp": 5,
-        "od": 6,
-    }
-        self.publishOnline(data)
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164

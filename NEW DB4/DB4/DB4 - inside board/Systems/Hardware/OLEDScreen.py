@@ -23,11 +23,8 @@ class OLEDScreen:
     
     
     def displayMessage(self, message):
-<<<<<<< HEAD
         
         message = str (message)
-=======
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
         
         # Clear the display
         self.oled.fill(0)

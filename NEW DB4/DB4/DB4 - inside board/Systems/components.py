@@ -32,15 +32,11 @@ temperatureSensorPin = 25
 FixedResistor = 10000
 temperatureSensor= TemperatureSensor(temperatureSensorPin)
 
-
-<<<<<<< HEAD
-enable_pin = 32
-=======
-enable_pin = 25
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
+voltage_pin = 13
 stepper_pin = 33
 direction_pin = 27
-valveSwitch = ValveSwitch(stepper_pin, direction_pin, enable_pin)
+valveSwitch = ValveSwitch(stepper_pin, direction_pin, voltage_pin)
+
 
 
 #inputA = 21
@@ -62,21 +58,12 @@ EnableB = 32
 ledStrip = LEDStrip(inputC, inputD, EnableB)
 
 
-<<<<<<< HEAD
 cooling_pin_Inp2 = 12
 cooler = Cooler(cooling_pin_Inp2)
 
 
 fan_pin_Inp1 = 4
 fan = Fan(fan_pin_Inp1)
-=======
-cooling_pin_Inp1 = 12
-cooler = Cooler(cooling_pin_Inp1)
-
-
-fan_pin_Inp2 = 13
-fan = Fan(fan_pin_Inp2)
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
 
 sclPin = 22
@@ -94,11 +81,10 @@ odSensor = ODSensor(ODSensorPin)
 #SOFTWARE:
 
 
-#TODO Mathis fix this 
 pidTemperatureController = PID(Kp=1.5, Ki=0.5, Kd=1.5, setpoint=18, sample_time=0.1, output_limits=(-100, 0))
 #pidODController = PIDController()
 
 wifiConnecter = WifiConnecter()
 adafruitIOClient = AdafruitIOClient()
-offlineClient = OfflineClient()
-dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
+#offlineClient = OfflineClient()
+#dataPublisher = DataPublisher(adafruitIOClient, offlineClient)

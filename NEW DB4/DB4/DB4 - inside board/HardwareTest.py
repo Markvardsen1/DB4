@@ -20,7 +20,9 @@ def testCoolingWaterAndSwitching():
 
     components.largeDCMotor.stop()
     time.sleep(1)
+    components.valveSwitch.start()
     components.valveSwitch.switch()
+    components.valveSwitch.stop()
     time.sleep(1)
     components.largeDCMotor.start()
 
@@ -30,7 +32,9 @@ def testCoolingWaterAndSwitching():
         
     components.largeDCMotor.stop()
     time.sleep(1)
+    components.valveSwitch.start()
     components.valveSwitch.switch()
+    components.valveSwitch.stop()
     time.sleep(1)
 
 if __name__ == '__main__':

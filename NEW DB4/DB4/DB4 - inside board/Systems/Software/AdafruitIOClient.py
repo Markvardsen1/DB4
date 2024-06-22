@@ -5,7 +5,6 @@ from Systems.Software.CommandHandler import handleCommand
 from umqtt.robust import MQTTClient
 
 
-<<<<<<< HEAD
 class AdafruitIOClient:
 
         def __init__(self):
@@ -31,78 +30,6 @@ class AdafruitIOClient:
                 # create a random MQTT clientID
                 random_num = int.from_bytes(uos.urandom(3), 'little')
                 mqtt_client_id = bytes('client_' + str(random_num), 'utf-8')
-=======
-
-class AdafruitIOClient: #TODO consider remaking this class, the structure is kinda weird
-
-    def __init__(self):
-            from Systems.constants import (ADAFRUIT_IO_KEY, ADAFRUIT_USERNAME,
-                                            commandFeed, listOfDataFeeds)
-            
-            self.ADAFRUIT_USERNAME = ADAFRUIT_USERNAME
-            self.ADAFRUIT_IO_KEY = ADAFRUIT_IO_KEY
-            
-            
-            self.client = self.createClient()
-            
-            self.listOfDataFeeds = listOfDataFeeds
-            self.commandFeed = commandFeed
-
-
-
-
-        
-    def waitCommand(self):
-            
-        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
-        
-        self.client.set_callback(self.cb)
-        self.client.subscribe(mqtt_feedname)
-
-        mqtt_feedname_get = bytes('{:s}/get'.format(mqtt_feedname), 'utf-8')
-        self.client.publish(mqtt_feedname_get, '\0')
-            
-            
-        try:
-                self.client.wait_msg() 
-
-        except Exception:
-                raise ZeroDivisionError
-    
-
-    def checkCommand(self):
-            
-        mqtt_feedname = bytes('{:s}/feeds/{:s}'.format(self.ADAFRUIT_USERNAME, self.commandFeed), 'utf-8')
-        
-        self.client.set_callback(self.cb)
-        self.client.subscribe(mqtt_feedname)
-
-        mqtt_feedname_get = bytes('{:s}/get'.format(mqtt_feedname), 'utf-8')
-        self.client.publish(mqtt_feedname_get, '\0')
-            
-            
-        try:
-                self.client.check_msg()
-        
-        except Exception:
-                raise ZeroDivisionError
-
-
-
-        def cb(self, topic, msg):
-                delay += 3
-                msg = msg.lower()
-                handleCommand(msg)
-
-        
-    
-    def createClient(self):
-        
-        print("creating adafruit client")
-        # create a random MQTT clientID
-        random_num = int.from_bytes(uos.urandom(3), 'little')
-        mqtt_client_id = bytes('client_' + str(random_num), 'utf-8')
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
                 # Adafruit IO URL
                 ADAFRUIT_IO_URL = b'io.adafruit.com'
@@ -128,13 +55,8 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
         def checkCommand(self): #TODO FIX THIS ONE
 
         
-<<<<<<< HEAD
                 self.client.set_callback(self.cb)
                 self.client.subscribe(self.mqtt_feedname)
-=======
-        
-        return client
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
                 mqtt_feedname_get = bytes('{:s}/get'.format(self.mqtt_feedname), 'utf-8') 
                 self.client.publish(mqtt_feedname_get, '\0')
@@ -145,15 +67,8 @@ class AdafruitIOClient: #TODO consider remaking this class, the structure is kin
                                 self.client.check_msg()
                                 
 
-<<<<<<< HEAD
                 except Exception:
                         raise ZeroDivisionError
-=======
-            try:
-                self.client.connect()
-            except Exception:
-                raise ZeroDivisionError
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
 
         def cb(self, topic, command):

@@ -32,13 +32,9 @@ class WifiConnecter:
 
         if attempt_count == MAX_ATTEMPTS:
             print("no connection")
-<<<<<<< HEAD
             raise ZeroDivisionError
         
         print("connected :DDD")
-=======
-            raise ConnectionError
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
         
     def testWifiConnecter(self):
         

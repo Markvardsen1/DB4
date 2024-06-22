@@ -27,13 +27,8 @@ class OfflineClient:
             try:
                 uos.remove(self.filePath + "\\" + self.DATAFILE)
                 print(f"{self.filePath} has been removed.")
-<<<<<<< HEAD
             except Exception as e:
                 print(e)
-=======
-            except Exception:
-                pass
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
                 print("failed to remove data file")
 
 

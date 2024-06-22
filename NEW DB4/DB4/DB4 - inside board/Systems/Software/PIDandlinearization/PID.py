@@ -3,7 +3,6 @@ import time
 import utime
 from Systems import components
 
-
 def _clamp(value, limits):
     lower, upper = limits
     if value is None:
@@ -269,7 +268,7 @@ class PID(object):
             curentPIDValue = 0
 
         if curentPIDValue == 0: 
-             components.largeDCMotor.setSpeedCycles(0)
+            components.largeDCMotor.setSpeedCycles(0)
         else:      
             components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
         time.sleep(0.1)
