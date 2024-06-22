@@ -32,7 +32,8 @@ class LargeDCMotor: #TODO rename this
         def setSpeedCycles(self, dutyCycles):
                 self.currentDutyCycle = dutyCycles
                 self.pwmB.duty(dutyCycles)
-                
+        def getSppedCycles(self):
+                return self.currentDutyCycle 
                 
         
         def setSpeedPercentage(self, percentage):

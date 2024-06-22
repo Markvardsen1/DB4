@@ -21,7 +21,8 @@ class TemperatureSensor:
     def getTemperature(self):
         
         if not(self.getResistance() == 0):
-            return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 + 2#OBS: CALIBRATE HERE
+            print("temperature sensor works")
+            return 1 / (1 / 298.15 + 1 / 3950 * math.log(abs(self.getResistance()) / 10000)) - 298.15 + 4 #OBS: CALIBRATE HERE
         
         else:
             print("temperature sensor doesent work fix")

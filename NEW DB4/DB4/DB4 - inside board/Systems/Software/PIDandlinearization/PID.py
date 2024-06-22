@@ -264,6 +264,7 @@ class PID(object):
     def runPIDforTemperatureSensor(self):
         if components.temperatureSensor.getAverageTemperature() >= 18:
             curentPIDValue = int(abs(self.__call__((components.temperatureSensor.getAverageTemperature()))))
+            print("Current PID value: ", curentPIDValue)
         else:
             curentPIDValue = 0
 

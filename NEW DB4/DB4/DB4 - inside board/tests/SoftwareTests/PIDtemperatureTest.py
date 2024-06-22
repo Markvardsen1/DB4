@@ -2,11 +2,13 @@ import time
 
 import machine
 from Systems import components
+from Systems.Software.PIDandlinearization import PID
 
-# TODO set Kp, Ki, Kd at arbitrary values
-Kp, Ki, Kd = 1.0, 0, 0
-
-components.PIDtemperature.pidForTemperatureSensor.tunings = (Kp, Ki, Kd)
-
-components.pidTemperatureController
-components.PIDtemperature.runTest()
+if __name__ == '__main__':
+    components.cooler.highCooling()
+    components.fan.startFan()
+    components.largeDCMotor.start()
+    while True:
+        components.pidTemperatureController.runPIDforTemperatureSensor()
+        print("Temperature: ", components.temperatureSensor.getAverageTemperature())
+        print("Duty Cycle: ", components.largeDCMotor.getSppedCycles())
