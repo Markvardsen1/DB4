@@ -86,5 +86,5 @@ pidTemperatureController = PID(Kp=1.5, Ki=0.5, Kd=1.5, setpoint=18, sample_time=
 
 wifiConnecter = WifiConnecter()
 adafruitIOClient = AdafruitIOClient()
-#offlineClient = OfflineClient()
-#dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
+offlineClient = OfflineClient()
+dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
