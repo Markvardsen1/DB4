@@ -4,9 +4,10 @@ import sys
 import time
 
 import network
-from umqtt.robust import MQTTClient
 from Systems.components import (largeDCMotor, odSensor, oledScreen,
-                                    temperatureSensor)
+                                temperatureSensor)
+from umqtt.robust import MQTTClient
+
 
 def connectWifi():
     
@@ -33,7 +34,9 @@ def connectWifi():
         print('could not connect to the WiFi network')
         wifi.active(False)
         wifiStatus = False
-        
+    
+    print("waiting for wifi...")
+    time.sleep(100)
     return wifi, wifiStatus
         
 def createClient():
@@ -79,8 +82,8 @@ def pubAndSub(feedName, data):
     client.set_callback(cb)
     
     client.subscribe(mqtt_commandFeed)
-    
-    accum_time = 0
+        
+        
     try:
             client.publish(mqtt_feedname,
                         bytes(str(data), 'utf-8'),
@@ -94,7 +97,6 @@ def pubAndSub(feedName, data):
     except Exception as e:
         print('could not publish data to MQTT server {}{}'.format(type(e).__name__, e))
         
-
 def delete_file():
     """Check if the data file exists and delete it."""
     try:
@@ -194,6 +196,7 @@ def import_and_publish():
 WIFI_SSID = "dsfasGg"
 WIFI_PASSWORD = "bahamondes"
 
+
 ADAFRUIT_USERNAME = b'felimondes'
 PUBLISH_PERIOD_IN_SEC = 10
 SUBSCRIBE_CHECK_PERIOD_IN_SEC = 0.5
@@ -214,22 +217,15 @@ client, clientStatus = createClient()
 publishIndex = 0
 nextPublishTime = time.time() + PUBLISH_PERIOD_IN_SEC
 nextReconnectTime = time.time() + RECONNECT_PERIOD_IN_SEC
-
-
-
-
-
-
 while True:
     
     isTimeToPublish = nextPublishTime - time.time() < 0
     if isTimeToPublish:
-
-        print("Measureing data with sensors...")
-        wifi.active(False)
-        dataMap = getDataMap()
-        wifi.active(True)
         
+        
+        print("Measureing data with sensors...")
+        dataMap = getDataMap()
+
         print("Finding what to publish...")
         feedName, data = getNextPublish(dataMap)
         
