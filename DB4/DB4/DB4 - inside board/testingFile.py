@@ -5,9 +5,12 @@ import time
 
 import network
 from Systems.components import (largeDCMotor, odSensor, oledScreen,
-                                temperatureSensor)
+                                temperatureSensor, cooler, fan, ledStrip, valveSwitch,
+                                pidTemperatureController)
+from Systems.Software.MuscleFarmRunner import MuscleFarmRunner
 from umqtt.robust import MQTTClient
 
+muscleFarmRunner = MuscleFarmRunner()
 
 def connectWifi():
     
@@ -36,7 +39,7 @@ def connectWifi():
         wifiStatus = False
     
     print("waiting for wifi...")
-    time.sleep(100)
+    time.sleep(5)
     return wifi, wifiStatus
         
 def createClient():
@@ -70,6 +73,79 @@ def pubAndSub(feedName, data):
     # called when subscribed data is received
     def cb(topic, msg):
         print("message was recieved :)")
+        command = msg.decode("utf-8") 
+        print(command)
+        print(type(command))
+
+
+        if command.startswith("cooler("):
+            content_str = (command[len("cooler("):-1])
+
+            if content_str == "on":
+                cooler.start()
+                
+            elif content_str == "off":
+                cooler.stop()
+        
+        if command.startswith("fan("):
+            content_str = (command[len("fan("):-1])
+
+            if content_str == "on":
+                print("starting fan")
+                fan.startFan()
+                
+            elif content_str == "off":
+                fan.stopFan()
+
+        if command.startswith("pump("):
+            content_str = (command[len("pump("):-1])
+            largeDCMotor.setSpeedPercentage(int(content_str))
+            
+
+        if command.startswith("led("):
+            content_str = (command[len("led("):-1])
+            ledStrip.setSpeedPercentage(int(content_str))
+
+
+        if command.startswith("switch("):
+            content_str = (command[len("cooler("):-1])
+
+            if content_str == "on":
+                valveSwitch.ON()
+                
+            elif content_str == "off":
+                valveSwitch.OFF()
+                
+        if command.startswith("oled("):
+            content_str = (command[len("oled("):-1])
+            oledScreen.displayMessage(content_str)
+
+        if command.startswith("tempP("):
+            content_str = (command[len("tempP("):-1])
+            pidTemperatureController.setKp(content_str)
+        
+        if command.startswith("tempI("):
+            content_str = (command[len("tempI("):-1])
+            pidTemperatureController.setKi(content_str)
+
+
+        if command.startswith("tempD("):
+            content_str = (command[len("tempD("):-1])
+            pidTemperatureController.setKd(content_str)
+
+        if command.startswith("Start!"):
+            muscleFarmRunner.startMuscleFarm()
+
+        if command.startswith("temp("):
+            content_str = (command[len("temp("):-1])
+            pidTemperatureController.setTargetTemperature(content_str)
+
+
+
+
+            
+
+
 
     # publish 'FEEDNAME' statistics to Adafruit IO using MQTT
     # subscribe to 'COMMAND FEED'
@@ -193,11 +269,11 @@ def import_and_publish():
 
 
 # Constants
-WIFI_SSID = "dsfasGg"
-WIFI_PASSWORD = "bahamondes"
+WIFI_SSID = "Tester"
+WIFI_PASSWORD = "Valli003"
+ADAFRUIT_IO_KEY      = "aio_bMFF44O2ed8244X6PImgZ849ypuW"
 
-
-ADAFRUIT_USERNAME = b'felimondes'
+ADAFRUIT_USERNAME = b'Valde'
 PUBLISH_PERIOD_IN_SEC = 10
 SUBSCRIBE_CHECK_PERIOD_IN_SEC = 0.5
 RECONNECT_PERIOD_IN_SEC = 15
@@ -217,47 +293,93 @@ client, clientStatus = createClient()
 publishIndex = 0
 nextPublishTime = time.time() + PUBLISH_PERIOD_IN_SEC
 nextReconnectTime = time.time() + RECONNECT_PERIOD_IN_SEC
-while True:
-    
-    isTimeToPublish = nextPublishTime - time.time() < 0
-    if isTimeToPublish:
-        
-        
-        print("Measureing data with sensors...")
-        dataMap = getDataMap()
 
-        print("Finding what to publish...")
-        feedName, data = getNextPublish(dataMap)
-        
-        if wifiStatus and clientStatus:
+whenToSwitch = 0 
+
+def runner():
+
+    muscleFarmRunner.startMuscleFarm()
+
+    ledStrip.start()
+    ledStrip.setLightPercentage(50)
+
+    while True:
+
+        if whenToSwitch < 3300:
+            pidTemperatureController.runPIDforTemperatureSensor()
+
+        elif whenToSwitch == 3300:
+            largeDCMotor.stop()
+            time.sleep(0.5)
+            valveSwitch.switch()
+            time.sleep(0.5)
+            largeDCMotor.start()
+
+        elif whenToSwitch > 3300 and whenToSwitch < 3600:
+            muscleFarmRunner.setLargeDCMotorForAlgae(odSensor.getOD())
+
+        elif whenToSwitch == 3600:
+            largeDCMotor.stop()
+            time.sleep(0.5)
+            valveSwitch.switch()
+            time.sleep(0.5)
+            largeDCMotor.start()
+
+            whenToSwitch = 0
+
+        whenToSwitch += 1
+
+        isTimeToPublish = nextPublishTime - time.time() < 0
+        if isTimeToPublish:
             
-            pubAndSub(feedName, data)
             
+            print("Measureing data with sensors...")
+            dataMap = getDataMap()
+
+            print("Finding what to publish...")
+            feedName, data = getNextPublish(dataMap)
+            
+            if wifiStatus and clientStatus:
                 
-        else:
-            publish_offline(feedName, data)
-            wifiStatus = False
-            clientStatus = False
-        
-        publishIndex = (publishIndex + 1) % len(publishOrder)
-        nextPublishTime = time.time() + PUBLISH_PERIOD_IN_SEC
-    
-    
-    isTimeToReconnect = nextReconnectTime - time.time() < 0
-    if (not wifiStatus) and (not clientStatus) & isTimeToReconnect:
-        
-        try:
+                pubAndSub(feedName, data)
+                
+                    
+            else:
+                publish_offline(feedName, data)
+                wifiStatus = False
+                clientStatus = False
             
-            print("Reconnecting to wifi and mqtt...")
-            wifi, wifiStatus = connectWifi()
-            print("Connect to client...")
-            client.connect()
-            clientStatus = True
+            publishIndex = (publishIndex + 1) % len(publishOrder)
+            nextPublishTime = time.time() + PUBLISH_PERIOD_IN_SEC
+        
+        
+        isTimeToReconnect = nextReconnectTime - time.time() < 0
+        if (not wifiStatus) and (not clientStatus) & isTimeToReconnect:
             
-            import_and_publish()
+            try:
+                
+                print("Reconnecting to wifi and mqtt...")
+                wifi, wifiStatus = connectWifi()
+                print("Connect to client...")
+                client.connect()
+                clientStatus = True
+                
+                import_and_publish()
 
-        except Exception as e:
-            print('SomeConnection or importing problem: {}{}'.format(type(e).__name__, e))
-            
-        nextReconnectTime = time.time() + RECONNECT_PERIOD_IN_SEC
-        time.sleep(1)
+            except Exception as e:
+                print('SomeConnection or importing problem: {}{}'.format(type(e).__name__, e))
+                
+            nextReconnectTime = time.time() + RECONNECT_PERIOD_IN_SEC
+            time.sleep(1)
+
+
+    # muscleFarmRunner = MuscleFarmRunner()
+
+    # try:
+    #     wifiConnecter.connectToWifi()
+    #     adafruitIOClient.connectToAdafruitIO()
+    #     muscleFarmRunner.onlineMode()
+        
+    # except ZeroDivisionError:
+        
+    #     muscleFarmRunner.offlineMode()

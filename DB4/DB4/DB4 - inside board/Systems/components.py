@@ -28,7 +28,7 @@ from Systems.Software.WifiConnecter import WifiConnecter
 
 #HARDWARE
 
-temperatureSensorPin = 25
+temperatureSensorPin = 39
 FixedResistor = 10000
 temperatureSensor= TemperatureSensor(temperatureSensorPin)
 
@@ -71,7 +71,7 @@ sdaPin = 23
 oledScreen = OLEDScreen(sclPin, sdaPin)
 
 
-ODSensorPin = 26
+ODSensorPin = 34
 odSensor = ODSensor(ODSensorPin)
 
 

@@ -1,7 +1,10 @@
 import time
+import machine 
 
 from Systems import components
 from Systems.constants import secBetweenPublishes
+from Systems.Hardware import *
+from Systems.Software import *
 
 
 class MuscleFarmRunner:
@@ -77,4 +80,13 @@ class MuscleFarmRunner:
                 except ZeroDivisionError:
                     self.offlineMode()
 
-    
+
+
+    def startMuscleFarm(self):
+        components.fan.startFan()
+        components.cooler.highCooling()
+        components.largeDCMotor.start()
+            
+    def setLargeDCMotorForAlgae(self, ODValue):
+        percentage = components.odSensor.mappingODSensorToPercentage(ODValue)
+        components.largeDCMotor.setSpeedPercentage(percentage)

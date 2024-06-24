@@ -3,12 +3,11 @@ import time
 import machine
 from Systems import components
 
-<<<<<<< HEAD
 components.cooler.highCooling()
 components.fan.startFan()
 #components.largeDCMotor.start()
-components.largeDCMotor.setSpeedCycles(1023)
-=======
+# components.largeDCMotor.setSpeedCycles(1023)
+
 while True:
     
 
@@ -26,7 +25,6 @@ while True:
 
 
 
->>>>>>> ba198947ef0e347ee4d5b5b01c7c07ce979e0164
 
 while True:
     

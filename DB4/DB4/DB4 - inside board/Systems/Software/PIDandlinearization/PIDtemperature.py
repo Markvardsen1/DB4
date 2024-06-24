@@ -20,8 +20,8 @@ pidForTemperatureSensor = PID.PID(
     )
 
 def runPIDforTemperatureSensor():
-        if components.temperatureSensor.getAverageTemperature() >= 18:
-            curentPIDValue = int(abs(pidForTemperatureSensor((components.temperatureSensor.getAverageTemperature()))))
+        if components.temperatureSensor.getMedianTemperature() >= 18:
+            curentPIDValue = int(abs(pidForTemperatureSensor((components.temperatureSensor.getMedianTemperature()))))
         else:
             curentPIDValue = 0
 
@@ -29,13 +29,13 @@ def runPIDforTemperatureSensor():
              components.largeDCMotor.setSpeedCycles(0)
         else:      
             components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
-        print('PID Value:' , curentPIDValue)
-        print('Temperature:' , components.temperatureSensor.getAverageTemperature())
+        # print('PID Value:' , curentPIDValue)
+        # print('Temperature:' , components.temperatureSensor.getMedianTemperature())
         time.sleep(0.5)
 
 def runTest():
     while True: 
-        latestTemperatureOutput = components.temperatureSensor.getAverageTemperature()
+        latestTemperatureOutput = components.temperatureSensor.getMedianTemperature()
         latestPIDOutput = pidForTemperatureSensor(latestTemperatureOutput)
         Pterm, Dterm, Iterm = pidForTemperatureSensor.components()
         print("Temperature: ", latestTemperatureOutput)

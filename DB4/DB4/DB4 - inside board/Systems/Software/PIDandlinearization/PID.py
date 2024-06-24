@@ -262,9 +262,9 @@ class PID(object):
         self._last_input = None
         
     def runPIDforTemperatureSensor(self):
-        if components.temperatureSensor.getAverageTemperature() >= 18:
-            curentPIDValue = int(abs(self.__call__((components.temperatureSensor.getAverageTemperature()))))
-            print("Current PID value: ", curentPIDValue)
+        if components.temperatureSensor.getMedianTemperature() >= 18:
+            curentPIDValue = int(abs(self.__call__((components.temperatureSensor.getMedianTemperature()))))
+            # print("Current PID value: ", curentPIDValue)
         else:
             curentPIDValue = 0
 
@@ -273,3 +273,15 @@ class PID(object):
         else:      
             components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
         time.sleep(0.1)
+
+    def setKp(self, Kp):
+        self.Kp = Kp
+
+    def setKi(self, Ki):
+        self.Ki = Ki
+
+    def setKd(self, Kd):
+        self.Kd = Kd
+
+    def setTargetTemperature(self, temp): 
+        self.setpoint = temp

@@ -21,13 +21,13 @@ class ValveSwitch:
         def switch(self): # this is a solution in order to switch the valves without checking the direction... WORKS 
                 
                 if self.place == 0:
-                        self.doSteps(50) #90 degrees
+                        self.doSteps(150) #90 degrees
                         self.place = 1
                         
                         print("Left turn")
                         
                 elif self.place == 1:
-                        self.doSteps(150) #270 degrees
+                        self.doSteps(50) #270 degrees
                         self.place = 0
                         print("Right turn")
                 else:

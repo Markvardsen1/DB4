@@ -39,7 +39,7 @@ class LEDStrip:
         
         def setLightPercentage(self, percentage):
                 self.currentDutyCycle = self.percentageToDutyCycle(percentage)
-                self.pwmA.duty(self.currentDutyCycle)
+                self.pwmA.duty(int(self.currentDutyCycle))
 
         def getLightPercentage(self):
                 percentage = self.dutyCycleToPercentage(self.currentDutyCycle)
