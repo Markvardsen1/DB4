@@ -1,4 +1,3 @@
-
 from Systems.Hardware import *
 from Systems.Hardware.Cooler import Cooler
 from Systems.Hardware.Fan import Fan
@@ -8,29 +7,25 @@ from Systems.Hardware.ODSensor import ODSensor
 from Systems.Hardware.OLEDScreen import OLEDScreen
 from Systems.Hardware.TemperatureSensor import TemperatureSensor
 from Systems.Hardware.ValveSwitch import ValveSwitch
-from Systems.Software.AdafruitIOClient import AdafruitIOClient
-from Systems.Software.DataPublisher import DataPublisher
-from Systems.Software.OfflineClient import OfflineClient
 from Systems.Software.PIDandlinearization.PID import PID
-from Systems.Software.WifiConnecter import WifiConnecter
 
-#notes
+# notes
 
-#yellow = 12v
-#red = 5v
-#white = 3v
-#green ground
-
-
-#relay :
-#vcc = 12v 
+# yellow = 12v
+# red = 5v
+# white = 3v
+# green ground
 
 
-#HARDWARE
+# relay :
+# vcc = 12v
+
+
+# HARDWARE
 
 temperatureSensorPin = 39
 FixedResistor = 10000
-temperatureSensor= TemperatureSensor(temperatureSensorPin)
+temperatureSensor = TemperatureSensor(temperatureSensorPin)
 
 voltage_pin = 13
 stepper_pin = 33
@@ -38,16 +33,15 @@ direction_pin = 27
 valveSwitch = ValveSwitch(stepper_pin, direction_pin, voltage_pin)
 
 
+# inputA = 21
+# inputB = 17
+# EnableA = 16
+# smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
 
-#inputA = 21
-#inputB = 17
-#EnableA = 16
-#smallDCMotor = SmallDCMotor(inputA, inputB, EnableA)
 
-
-inputA = 16 #rx
-inputB = 17 #tx
-EnableA = 21 #21
+inputA = 16  # rx
+inputB = 17  # tx
+EnableA = 21  # 21
 largeDCMotor = LargeDCMotor(inputA, inputB, EnableA)
 
 inputC = 15
@@ -75,16 +69,15 @@ ODSensorPin = 34
 odSensor = ODSensor(ODSensorPin)
 
 
+# SOFTWARE:
 
 
+pidTemperatureController = PID(
+    Kp=1.5, Ki=0.5, Kd=1.5, setpoint=18, sample_time=0.1, output_limits=(-100, 0)
+)
+# pidODController = PIDController()
 
-#SOFTWARE:
-
-
-pidTemperatureController = PID(Kp=1.5, Ki=0.5, Kd=1.5, setpoint=18, sample_time=0.1, output_limits=(-100, 0))
-#pidODController = PIDController()
-
-wifiConnecter = WifiConnecter()
-adafruitIOClient = AdafruitIOClient()
-offlineClient = OfflineClient()
-dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
+# wifiConnecter = WifiConnecter()
+# adafruitIOClient = AdafruitIOClient()
+# offlineClient = OfflineClient()
+# dataPublisher = DataPublisher(adafruitIOClient, offlineClient)
