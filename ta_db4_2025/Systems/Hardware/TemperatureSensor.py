@@ -51,7 +51,7 @@ class TemperatureSensor:
         
     def testTempeartureSensor(self):
         print("running test temperature")
-        for i in range(10):
+        for i in range(5):
             print(self.getMedianTemperature())
             time.sleep(1)
         print("Test is done")

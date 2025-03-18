@@ -26,9 +26,9 @@ def runPIDforTemperatureSensor():
             curentPIDValue = 0
 
         if curentPIDValue == 0: 
-             components.largeDCMotor.setSpeedCycles(0)
+             components.foodPump.setSpeedCycles(0)
         else:      
-            components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
+            components.foodPump.setSpeedPercentage(int(curentPIDValue))
         # print('PID Value:' , curentPIDValue)
         # print('Temperature:' , components.temperatureSensor.getMedianTemperature())
         time.sleep(0.5)
@@ -48,6 +48,6 @@ def runTest():
 if __name__ == '__main__':
     components.cooler.highCooling()
     components.fan.startFan()
-    components.largeDCMotor.start()
+    components.foodPump.start()
     while True:
         runPIDforTemperatureSensor()

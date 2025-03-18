@@ -269,9 +269,9 @@ class PID(object):
             curentPIDValue = 0
 
         if curentPIDValue == 0: 
-            components.largeDCMotor.setSpeedCycles(0)
+            components.foodPump.setSpeedCycles(0)
         else:      
-            components.largeDCMotor.setSpeedPercentage(int(curentPIDValue))
+            components.foodPump.setSpeedPercentage(int(curentPIDValue))
         time.sleep(0.1)
 
     def setKp(self, Kp):

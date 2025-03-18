@@ -16,7 +16,7 @@ class Cooler:
 
     def testCooler(self):
         
-        print("Starting cooler test..,LISTEN FOR THE CLICK!!!!")
+        print("Starting cooler test.. LISTEN FOR THE CLICK!!!!")
         time.sleep(3)
         for i in range(3):
             

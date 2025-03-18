@@ -118,7 +118,7 @@ class OLEDScreen:
 
         print("running OLED runTest..")
     
-        for i in range(10):
+        for i in range(5):
             self.displayData(data)
             time.sleep(1)
         

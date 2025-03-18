@@ -7,7 +7,7 @@ def handleCommand(msg):
     command = msg.decode("utf-8") 
     print(command)
     print(type(command))
-    from Systems.components import (cooler, dataPublisher, fan, largeDCMotor,
+    from Systems.components import (cooler, dataPublisher, fan, foodPump,
                                     ledStrip, offlineClient, oledScreen,
                                     valveSwitch)
 
@@ -32,7 +32,7 @@ def handleCommand(msg):
 
     if command.startswith("pump("):
         content_str = (command[len("pump("):-1])
-        largeDCMotor.setSpeedPercentage(int(content_str))
+        foodPump.setSpeedPercentage(int(content_str))
         
 
     if command.startswith("led("):

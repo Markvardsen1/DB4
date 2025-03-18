@@ -8,7 +8,7 @@ class LargeDCMotor:  # TODO rename this
     currentDutyCycle = 0
 
     maxCycles = int(1023)
-    minCycles = int(450)  # adjust this according to system
+    minCycles = int(450)  # adjust this according to system 
 
     def __init__(self, inputD, inputC, EnableB) -> None:
         self.inputD = machine.Pin(inputD, machine.Pin.OUT)
@@ -75,12 +75,35 @@ class LargeDCMotor:  # TODO rename this
         print("running large DC testMaxSpeed....")
         self.start()
         iter = 0
+        print("running at max speed")
         while iter < 1000:
-            print("running at max speed")
             self.setSpeedCycles(self.maxCycles)
             time.sleep(0.01)
             iter += 1
 
         print("Test is done")
         self.stop()
+
+
+
+    def testMaxSpeedForever(self):
+        print("running large DC testMaxSpeed....")
+        self.start()
+        iter = 0
+        print("running at max speed")
+        while True:
+            self.setSpeedCycles(self.maxCycles)
+            time.sleep(0.01)
+            iter += 1
+            if iter == 1000:
+                print("still running")
+                iter = 0
+
+
+
+
+
+
+   
+
 

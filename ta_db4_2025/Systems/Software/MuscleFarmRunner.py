@@ -85,8 +85,8 @@ class MuscleFarmRunner:
     def startMuscleFarm(self):
         components.fan.startFan()
         components.cooler.highCooling()
-        components.largeDCMotor.start()
+        components.foodPump.start()
             
     def setLargeDCMotorForAlgae(self, ODValue):
         percentage = components.odSensor.mappingODSensorToPercentage(ODValue)
-        components.largeDCMotor.setSpeedPercentage(percentage)
+        components.foodPump.setSpeedPercentage(percentage)
